@@ -49,8 +49,8 @@ create table Diagnosis (
 
 create table Room (
 	roomNum integer primary key,
-	patID integer not null,
-	empID integer not null,
+	patID integer,
+	empID integer,
 	foreign key(patID) references Patient(patID),
 	foreign key(empID) references Employee(empID)
 );
