@@ -19,7 +19,7 @@ create table Employee (
 	eLastName text not null,
 	eHiredate text not null,
 	eType text not null,
-	check (eType in ("Consulting Doctor","Admin","Nurse","Tech","Staff"))
+	check (eType in ("Admiting Doctor", "Consulting Doctor","Admin","Nurse","Tech","Staff"))
 );
 
 create table Volunteer (
