@@ -1,16 +1,16 @@
-drop table Employee;
-drop table Volunteer;
-drop table Services;
-drop table Treatment;
-drop table Patient;
-drop table Diagnosis;
-drop table Room;
-drop table Admit;
-drop table VolProvide;
-drop table StaffProvide;
-drop table AssignDoc;
-drop table Orders;
-drop table Administers;
+drop table if exists Employee;
+drop table if exists Volunteer;
+drop table if exists Services;
+drop table if exists Treatment;
+drop table if exists Patient;
+drop table if exists Diagnosis;
+drop table if exists Room;
+drop table if exists Admit;
+drop table if exists VolProvide;
+drop table if exists StaffProvide;
+drop table if exists AssignDoc;
+drop table if exists Orders;
+drop table if exists Administers;
 
 create table Employee (
 	empID integer primary key,
@@ -19,6 +19,7 @@ create table Employee (
 	eLastName text not null,
 	eHiredate text not null,
 	eType text not null,
+	check (eType in ("Consulting Doctor","Admin","Nurse","Tech","Staff"))
 );
 
 create table Volunteer (
@@ -32,6 +33,7 @@ create table Volunteer (
 create table Services (
 	servType text primary key,
 	staffOnly boolean not null check(staffOnly in (0,1))
+	check (servType in ("Gift shop","Info desk","Snack carts","Reading carts","Cafeteria","Janitorial"))
 );
 
 create table Treatment (
@@ -80,14 +82,14 @@ create table Admit (
 create table VolProvide (
 	volID integer,
 	dayOfWeek text,
-	foreign key (volID references Volunteer(volID),
+	foreign key (volID) references Volunteer(volID),
 	foreign key (servType) references Services(servType),
 	primary key (volID,servType,dayOfWeek)	
 );
 
 create table StaffProvide (
 	empID integer, 
-	servType text ,
+	servType text,
 	foreign key(empID) references Employee(empID),
 	foreign key(servType) references Services(servType),
 	primary key (empID, servType)
