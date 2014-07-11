@@ -22,3 +22,15 @@ create table StaffProvide (
 	foreign key(servType) references Services(servType),
 	primary key (empID, servType)
 );
+
+create table Administers (
+	docOrderID integer,
+	treatID integer,
+	patID integer,
+	orderTime text,
+	empAdministerID int,
+	adminTime text not null,
+	foreign key (docOrderID, treatID, patID, orderTime) references Order (empID, treatID, patID, orderTime),
+	foreign key (empAdministerID) references Employee (empID),
+	primary key (docOrderID, treatID, patID, orderTime, empAdministerID)
+);
