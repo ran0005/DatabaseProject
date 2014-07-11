@@ -1,3 +1,17 @@
+drop table Employee;
+drop table Volunteer;
+drop table Services;
+drop table Treatment;
+drop table Patient;
+drop table Diagnosis;
+drop table Room;
+drop table Admit;
+drop table VolProvide;
+drop table StaffProvide;
+drop table AssignDoc;
+drop table Orders;
+drop table Administers;
+
 create table Employee (
 	empID integer primary key,
 	eFirstName text not null,
