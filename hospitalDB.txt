@@ -1,10 +1,34 @@
-create table Patient (
-	patID integer primary key,
-	pFirstName text not null,
-	pMInit text not null,
-	pLastName text not null,
-	emergContact text not null,
-	insurance text not null
+create table Employee (
+	empID integer primary key,
+	eFirstName text not null,
+	eMInit text not null,
+	eLastName text not null,
+	eHiredate text not null,
+	eType text not null,
+);
+
+create table Volunteer (
+	volID integer primary key,
+	vFirstName text not null,
+	vMInit text not null,
+	vLastName text not null,
+	vHiredate text not null,
+);
+
+create table Services (
+	servType text primary key,
+	staffOnly boolean not null check(staffOnly in (0,1))
+);
+
+create table Treatment (
+	treatID integer primary key,
+	tName text not null,
+	tType text not null
+);
+
+create table Diagnosis (
+	diagID integer primary key,
+	dName text not null
 );
 
 create table Room (
@@ -15,12 +39,66 @@ create table Room (
 	foreign key(empID) references Employee(empID)
 );
 
+create table Patient (
+	patID integer primary key,
+	pFirstName text not null,
+	pMInit text not null,
+	pLastName text not null,
+	emergContact text not null,
+	insurance text not null
+);
+
+create table Admit (
+	admitDocID integer,
+	diagID integer,
+	patID integer,
+	startTime text,
+	patType text not null,
+	dischargeAdminID integer not null,
+	endTime text,
+	foreign key (admitDocID) references Employee(empID),
+	foreign key (diagID) references Diagnosis(diagID),
+	foreign key (patID) refereneces Patient(patID),
+	foreign key (dischargeAdminID) references Employee(empID),
+	primary key (admitDocID,diagID, patID,startTime)
+);
+
+create table VolProvide (
+	volID integer,
+	dayOfWeek text,
+	foreign key (volID references Volunteer(volID),
+	foreign key (servType) references Services(servType),
+	primary key (volID,servType,dayOfWeek)	
+);
+
 create table StaffProvide (
 	empID integer, 
 	servType text ,
 	foreign key(empID) references Employee(empID),
 	foreign key(servType) references Services(servType),
 	primary key (empID, servType)
+);
+
+create table AssignDoc (
+	primaryID integer,
+	secondaryID integer,
+	patID integer,
+	assignTime text,
+	foreign key (primaryID) references Employee(empID),
+	foreign key (secondaryID) references Employee(empID),
+	foreign key (patID)  references Patient(patID),
+	primary key (primaryID,secondaryID,patID,assignTime)
+);
+
+create table Orders (
+	empID integer,
+	treatID integer,
+	patID integer,
+	orderTime text,
+	foreign key (empID) references Employee(empID),
+	foreign key (treatID)  references Treatment(treatID),
+	foreign key (patID) references Patient(patID),
+	primary key (empID,treatID,patID,orderTime)
 );
 
 create table Administers (
