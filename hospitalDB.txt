@@ -27,7 +27,7 @@ create table Volunteer (
 	vFirstName text not null,
 	vMInit text not null,
 	vLastName text not null,
-	vHiredate text not null,
+	vHiredate text not null
 );
 
 create table Services (
@@ -74,7 +74,7 @@ create table Admit (
 	endTime text,
 	foreign key (admitDocID) references Employee(empID),
 	foreign key (diagID) references Diagnosis(diagID),
-	foreign key (patID) refereneces Patient(patID),
+	foreign key (patID) references Patient(patID),
 	foreign key (dischargeAdminID) references Employee(empID),
 	primary key (admitDocID,diagID, patID,startTime)
 );
@@ -125,7 +125,7 @@ create table Administers (
 	orderTime text,
 	empAdministerID int,
 	adminTime text not null,
-	foreign key (docOrderID, treatID, patID, orderTime) references Order (empID, treatID, patID, orderTime),
+	foreign key (docOrderID, treatID, patID, orderTime) references Orders (empID, treatID, patID, orderTime),
 	foreign key (empAdministerID) references Employee (empID),
 	primary key (docOrderID, treatID, patID, orderTime, empAdministerID)
 );
