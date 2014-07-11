@@ -1,0 +1,24 @@
+create table Patient (
+	patID integer primary key,
+	pFirstName text not null,
+	pMInit text not null,
+	pLastName text not null,
+	emergContact text not null,
+	insurance text not null
+);
+
+create table Room (
+	roomNum integer primary key,
+	patID integer not null,
+	empID integer not null,
+	foreign key(patID) references Patient(patID),
+	foreign key(empID) references Employee(empID)
+);
+
+create table StaffProvide (
+	empID integer, 
+	servType text ,
+	foreign key(empID) references Employee(empID),
+	foreign key(servType) references Services(servType),
+	primary key (empID, servType)
+);
