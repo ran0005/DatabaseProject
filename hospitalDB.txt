@@ -81,6 +81,7 @@ create table Admit (
 
 create table VolProvide (
 	volID integer,
+	servType text,
 	dayOfWeek text,
 	foreign key (volID) references Volunteer(volID),
 	foreign key (servType) references Services(servType),
