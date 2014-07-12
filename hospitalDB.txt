@@ -72,6 +72,7 @@ create table Admit (
 	patType text not null,
 	dischargeAdminID integer not null,
 	endTime text,
+	check (patType in ("in", "out"),
 	foreign key (admitDocID) references Employee(empID),
 	foreign key (diagID) references Diagnosis(diagID),
 	foreign key (patID) references Patient(patID),
