@@ -39,7 +39,8 @@ create table Services (
 create table Treatment (
 	treatID integer primary key,
 	tName text not null,
-	tType text not null
+	tType text not null,
+	check (tType in ("Medication","Procedure"))
 );
 
 create table Diagnosis (
