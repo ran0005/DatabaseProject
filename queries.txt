@@ -1,0 +1,94 @@
+-- _______________________Ian's Queries______________________
+
+--list the diagnoses given to admitted patients, in descending order of occurences.
+--list diagnosis identification number, name, and total occurences of each diagnosis.
+
+select Diagnosis.diagID, dName, occurences
+from Diagnosis
+join
+(
+	select diagID, count(*) as occurences
+	from Admit
+	where patType = "in"
+	group by diagID
+)
+as r
+on Diagnosis.diagID = r.diagID
+order by occurences desc;
+
+--list the diagnoses given to outpatients, in descending order of occurrences.
+--list diagnosis identification number, name, and total occurrences of each diagnosis.
+
+select Diagnosis.diagID, dName, occurences
+from Diagnosis
+join
+(
+	select diagID, count(*) as occurences
+	from Admit
+	where patType = "out"
+	group by diagID
+)
+as r
+on Diagnosis.diagID = r.diagID
+order by occurences desc;
+
+--List the diagnoses given to hospital patients in descending order of occurences.
+--list diagnosis identification number, name, and total occurrences of each diagnosis.
+
+
+select Diagnosis.diagID, dName, occurences
+from Diagnosis
+join
+(
+	select diagID, count(*) as occurences
+	from Admit
+	group by diagID
+)
+as r
+on Diagnosis.diagID = r.diagID
+order by occurences desc;
+
+--list the treatments performed at the hospital in descedning order of occurences.
+--list treatment id number, name, and total number of occurences.
+
+
+select Treatment.treatID, tName, occurences
+from Treatment
+join
+(
+	select treatID, count(*) as occurences
+	from Orders
+	group by treatID
+)
+as r
+on Treatment.treatID = r.treatID
+order by occurences desc;
+
+--List the treatments performed on admitted patients in decending order of occurences. 
+--list treatment id number, name, and total number of occurences.
+
+select Treatment.treatID, tName, occurences
+from Treatment
+join
+(
+	select treatID, count(*) as occurences
+	from 
+	(
+		select patID
+		from Admit
+		where patType = "in"
+	)
+	as r
+	join
+	(
+		select patID, treatID
+		from Orders
+	)
+	as r1
+	on r.PatID = r1.PatID
+	group by treatID
+)
+as r
+on Treatment.treatID = r.treatID
+order by occurences desc;
+
