@@ -88,7 +88,7 @@ join
 	on r.PatID = r1.PatID
 	group by treatID
 )
-as r
-on Treatment.treatID = r.treatID
+as r3
+on Treatment.treatID = r3.treatID
 order by occurences desc;
 
