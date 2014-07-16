@@ -1,15 +1,15 @@
-drop table if exists Employee;
-drop table if exists Volunteer;
-drop table if exists Services;
+drop table if exists Orders cascade;
+drop table if exists Employee cascade;
+drop table if exists Volunteer cascade;
+drop table if exists Services cascade;
 drop table if exists Treatment;
-drop table if exists Patient;
-drop table if exists Diagnosis;
+drop table if exists Patient cascade;
+drop table if exists Diagnosis cascade;
 drop table if exists Room;
 drop table if exists Admit;
 drop table if exists VolProvide;
 drop table if exists StaffProvide;
 drop table if exists AssignDoc;
-drop table if exists Orders;
 drop table if exists Administers;
 
 create table Employee (
@@ -32,7 +32,7 @@ create table Volunteer (
 
 create table Services (
 	servType text primary key,
-	staffOnly boolean not null check(staffOnly in (0,1))
+	staffOnly boolean not null,
 	check (servType in ("Gift shop","Info desk","Snack carts","Reading carts","Cafeteria","Janitorial"))
 );
 
@@ -48,14 +48,6 @@ create table Diagnosis (
 	dName text not null
 );
 
-create table Room (
-	roomNum integer primary key,
-	patID integer,
-	empID integer,
-	foreign key(patID) references Patient(patID),
-	foreign key(empID) references Employee(empID)
-);
-
 create table Patient (
 	patID integer primary key,
 	pFirstName text not null,
@@ -63,6 +55,14 @@ create table Patient (
 	pLastName text not null,
 	emergContact text not null,
 	insurance text not null
+);
+
+create table Room (
+	roomNum integer primary key,
+	patID integer,
+	empID integer,
+	foreign key(patID) references Patient(patID),
+	foreign key(empID) references Employee(empID)
 );
 
 create table Admit (
