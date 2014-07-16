@@ -26,12 +26,12 @@ insert into Volunteer values
 
 --Services Data
 insert into Services values
-('Gift shop',0),
-('Info desk',0),
-('Snack carts',0),
-('Reading carts',0),
-('Cafeteria',1),
-('Janitorial',1);
+('Gift shop',false),
+('Info desk',false),
+('Snack carts',false),
+('Reading carts',false),
+('Cafeteria',true),
+('Janitorial',true);
 
 --Treatment Data
 insert into Treatment values
@@ -58,6 +58,19 @@ insert into Diagnosis values
 (6, 'Hypothyriodism'),
 (7, 'Appendicitis');
 
+--Patient Data
+insert into Patient values
+(1, 'Walt', 'M', 'Quigley', '202-555-0161', 'Blue Shield'),
+(2, 'Dax', 'L', 'Hampson', '205-573-4141', 'Unitedhealth'),
+(3, 'Aylmer', 'L', 'Clifton', '815-245-0451', 'Wellpoint Inc.'),
+(4, 'Terrell', 'J', 'Massey', '202-555-0106', 'Kaiser Foundation'),
+(5, 'Ariel', 'T', 'Trevis', '202-555-0170', 'Unitedhealth'),
+(6, 'Dirk', 'K', 'Evelyn', '815-954-4584', 'Wellpoint Inc.'),
+(7, 'Ike', 'D', 'Quigley', '205-575-9561', 'Wellpoint Inc.'),
+(8, 'Zackary', 'H', 'West', '202-587-3841', 'Kaiser Foundation'),
+(9, 'Noah', 'C', 'Henderson', '221-574-9832', 'Wellpoint Inc.'),
+(10, 'Jeb', 'A', 'Dean', '202-855-1961', 'Unitedhealth');
+
 --Room Data
 insert into Room values
 (1, null, null),
@@ -73,19 +86,6 @@ insert into Room values
 (11, 3, 8),
 (12, null, null),
 (13, 10, 4);
-
---Patient Data
-insert into Patient values
-(1, 'Walt', 'M', 'Quigley', '202-555-0161', 'Blue Shield'),
-(2, 'Dax', 'L', 'Hampson', '205-573-4141', 'Unitedhealth'),
-(3, 'Aylmer', 'L', 'Clifton', '815-245-0451', 'Wellpoint Inc.'),
-(4, 'Terrell', 'J', 'Massey', '202-555-0106', 'Kaiser Foundation'),
-(5, 'Ariel', 'T', 'Trevis', '202-555-0170', 'Unitedhealth'),
-(6, 'Dirk', 'K', 'Evelyn', '815-954-4584', 'Wellpoint Inc.'),
-(7, 'Ike', 'D', 'Quigley', '205-575-9561', 'Wellpoint Inc.'),
-(8, 'Zackary', 'H', 'West', '202-587-3841', 'Kaiser Foundation'),
-(9, 'Noah', 'C', 'Henderson', '221-574-9832', 'Wellpoint Inc.'),
-(10, 'Jeb', 'A', 'Dean', '202-855-1961', 'Unitedhealth');
 
 --Admit Data
 insert into Admit values
