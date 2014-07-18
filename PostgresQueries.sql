@@ -26,7 +26,9 @@ on (r2.patID = Admit.patID and r2.recent = Admit.startTime)
 where time < 30;
 
 --B10
-select patID, totalVisits, avgDuration, minSpan, avgSpan, maxSpan
+--timeBetween is from VisitIntervals
+select patID, pLastName || ', ' || pFirstName || ' ' || pMInit as pName,
+	totalVisits, avgDuration, min(timeBetween), avg(timeBetween), max(timeBetween)
 from
 (
 	select patID, count(*) as totalVisits
@@ -43,30 +45,9 @@ left join
 )
 as r2
 using (patID)
-left join
-(
-	select patID, min(timeBetween) as minSpan
-	from VisitIntervals
-	group by patID
-)
-as r4
-using (patID)
-left join
-(
-	select patID, avg(timeBetween) as avgSpan
-	from VisitIntervals
-	group by patID
-)
-as r5
-using (patID)
-left join
-(
-	select patID, max(timeBetween) as maxSpan
-	from VisitIntervals
-	group by patID
-)
-as r6
-using (patID)
+left join VisitIntervals using (patID)
+join Patient using (patID)
+group by patID, totalVisits, avgDuration, pLastName, pFirstName, pMInit
 order by patID;
 
 --D1.
