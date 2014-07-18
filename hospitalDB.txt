@@ -11,6 +11,7 @@ drop table if exists VolProvide;
 drop table if exists StaffProvide;
 drop table if exists AssignDoc;
 drop table if exists Administers;
+drop view if exists VisitIntervals;
 
 create table Employee (
 	empID integer primary key,
@@ -131,4 +132,21 @@ create table Administers (
 	foreign key (docOrderID, treatID, patID, orderTime) references Orders (empID, treatID, patID, orderTime),
 	foreign key (empAdministerID) references Employee (empID),
 	primary key (docOrderID, treatID, patID, orderTime, empAdministerID)
+);
+
+create view VisitIntervals as 
+(
+	select patID, st1, min(st2::timestamp - st1::timestamp) timeBetween
+	from 
+	(
+		select patID, startTime as st1
+		from Admit
+		where endtime is not null
+	) s1 join
+	(
+		select patID, startTime as st2
+		from Admit
+	) s2 using (patID)
+	where s1.st1 < s2.st2
+	group by patID, st1
 );
