@@ -1,3 +1,74 @@
+--B9
+select Admit.patID, pLastName || ', ' || pFirstName ||' '|| pMInit as pName, dName, 
+	eLastName || ', ' || eFirstName ||' '|| eMInit as eName
+from Admit join Patient using (patID)
+	join Employee on Employee.empID = Admit.admitDocID
+	join Diagnosis using (diagID)
+	join
+(
+	select r.patID, recent, min(recent::date - r1.endTime::date) as time
+	from
+	(
+		select patID, max(startTime) as recent
+		from admit
+		group by patID
+	) as r
+	join
+	(
+		select patID, startTime, endTime
+		from admit
+	) as r1
+	using (patID)
+	where r.recent != r1.startTime
+	group by r.patID, recent
+) as r2
+on (r2.patID = Admit.patID and r2.recent = Admit.startTime)
+where time < 30;
+
+--B10
+select patID, totalVisits, avgDuration, minSpan, avgSpan, maxSpan
+from
+(
+	select patID, count(*) as totalVisits
+	from Admit
+	group by patID
+)
+as r1
+left join
+(
+	select patID, avg(endTime::timestamp - startTime::timestamp) as avgDuration
+	from Admit
+	where endTime is not null
+	group by patID
+)
+as r2
+using (patID)
+left join
+(
+	select patID, min(timeBetween) as minSpan
+	from VisitIntervals
+	group by patID
+)
+as r4
+using (patID)
+left join
+(
+	select patID, avg(timeBetween) as avgSpan
+	from VisitIntervals
+	group by patID
+)
+as r5
+using (patID)
+left join
+(
+	select patID, max(timeBetween) as maxSpan
+	from VisitIntervals
+	group by patID
+)
+as r6
+using (patID)
+order by patID;
+
 --D1.
 select *
 from (select empID as ID, eLastName || ', ' || eFirstName || ' ' || eMInit as EmpName, eType as Type, eHiredate as DateOfHire
