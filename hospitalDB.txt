@@ -19,7 +19,7 @@ create table Employee (
 	eLastName text not null,
 	eHiredate text not null,
 	eType text not null,
-	check (eType in ("Admitting Doctor", "Consulting Doctor","Admin","Nurse","Tech","Staff"))
+	check (eType in ('Admitting Doctor', 'Consulting Doctor','Admin','Nurse','Tech','Staff'))
 );
 
 create table Volunteer (
@@ -33,14 +33,14 @@ create table Volunteer (
 create table Services (
 	servType text primary key,
 	staffOnly boolean not null,
-	check (servType in ("Gift shop","Info desk","Snack carts","Reading carts","Cafeteria","Janitorial"))
+	check (servType in ('Gift shop','Info desk','Snack carts','Reading carts','Cafeteria','Janitorial'))
 );
 
 create table Treatment (
 	treatID integer primary key,
 	tName text not null,
 	tType text not null,
-	check (tType in ("Medication","Procedure"))
+	check (tType in ('Medication','Procedure'))
 );
 
 create table Diagnosis (
@@ -73,7 +73,7 @@ create table Admit (
 	patType text not null,
 	dischargeAdminID integer,
 	endTime text,
-	check (patType in ("in", "out")),
+	check (patType in ('in', 'out')),
 	foreign key (admitDocID) references Employee(empID),
 	foreign key (diagID) references Diagnosis(diagID),
 	foreign key (patID) references Patient(patID),
@@ -85,7 +85,7 @@ create table VolProvide (
 	volID integer,
 	servType text,
 	dayOfWeek text,
-	check (dayOfWeek in ("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")),
+	check (dayOfWeek in ('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun')),
 	foreign key (volID) references Volunteer(volID),
 	foreign key (servType) references Services(servType),
 	primary key (volID,servType,dayOfWeek)	
