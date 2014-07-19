@@ -1,0 +1,49 @@
+schemas:
+
+
+B5. List all patients who are currently receiving outpatient services. List only patient identification number and name.
+
+select patid, pfirstname||' '||pminit||' '||plastname as name from patient
+join admit using (patid)
+where pattype = 'out' and endtime is null;
+
+B6. List all patients who have received outpatient services within a given date range. List only patient identification number and name.
+
+select patid, pfirstname||' '||pminit||' '||plastname as name from patient
+join admit using (patid)
+where pattype = 'out' and substr(1,4)||substr(6,2)||substr(9,2) between '20140101' and '20140501';
+
+B7. For a given patient (either patient identification number or name), list all admissions to the hospital along with the diagnosis for each admission.
+
+select patid, starttime, endtime, dname 
+from patient
+join admit using (patid)
+join diagnosis using (diagid);
+
+B8. For a given patient (either patient identification number or name), list all treatments that were administered. Group treatments by admissions. List admissions in descending chronological order, and list treatments in ascending chronological order within each admission.
+
+select pfirstname||' '||pminit||' '||plastname as name,starttime,tname from patient
+join admit using (patid)
+join orders using (patid)
+join treatment using (treatid)
+order by starttime desc, tname asc;
+
+D7. List employees who have been involved in the treatment of every admitted patient.
+
+drop view if exists a;
+create view a as 
+select efirstname||' '||eminit||' '||elastname as name, patid as id
+from employee
+join orders using (empid);
+
+drop view if exists b;
+create view b as select patid as id from patient;
+
+drop view if exists c;
+create view c as 
+select name,id
+from
+(select name from a) as t0,(select id from b) as t1
+except select name,id from a;
+
+select name from a except select name from c;
