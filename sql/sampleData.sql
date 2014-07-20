@@ -26,12 +26,12 @@ insert into Volunteer values
 
 --Services Data
 insert into Services values
-('Gift shop',0),
-('Info desk',0),
-('Snack carts',0),
-('Reading carts',0),
-('Cafeteria',1),
-('Janitorial',1);
+('Gift shop',false),
+('Info desk',false),
+('Snack carts',false),
+('Reading carts',false),
+('Cafeteria',true),
+('Janitorial',true);
 
 --Treatment Data
 insert into Treatment values
@@ -58,6 +58,19 @@ insert into Diagnosis values
 (6, 'Hypothyriodism'),
 (7, 'Appendicitis');
 
+--Patient Data
+insert into Patient values
+(1, 'Walt', 'M', 'Quigley', '202-555-0161', 'Blue Shield'),
+(2, 'Dax', 'L', 'Hampson', '205-573-4141', 'Unitedhealth'),
+(3, 'Aylmer', 'L', 'Clifton', '815-245-0451', 'Wellpoint Inc.'),
+(4, 'Terrell', 'J', 'Massey', '202-555-0106', 'Kaiser Foundation'),
+(5, 'Ariel', 'T', 'Trevis', '202-555-0170', 'Unitedhealth'),
+(6, 'Dirk', 'K', 'Evelyn', '815-954-4584', 'Wellpoint Inc.'),
+(7, 'Ike', 'D', 'Quigley', '205-575-9561', 'Wellpoint Inc.'),
+(8, 'Zackary', 'H', 'West', '202-587-3841', 'Kaiser Foundation'),
+(9, 'Noah', 'C', 'Henderson', '221-574-9832', 'Wellpoint Inc.'),
+(10, 'Jeb', 'A', 'Dean', '202-855-1961', 'Unitedhealth');
+
 --Room Data
 insert into Room values
 (1, null, null),
@@ -74,31 +87,25 @@ insert into Room values
 (12, null, null),
 (13, 10, 4);
 
---Patient Data
-insert into Patient values
-(1, 'Walt', 'M', 'Quigley', '202-555-0161', 'Blue Shield'),
-(2, 'Dax', 'L', 'Hampson', '205-573-4141', 'Unitedhealth'),
-(3, 'Aylmer', 'L', 'Clifton', '815-245-0451', 'Wellpoint Inc.'),
-(4, 'Terrell', 'J', 'Massey', '202-555-0106', 'Kaiser Foundation'),
-(5, 'Ariel', 'T', 'Trevis', '202-555-0170', 'Unitedhealth'),
-(6, 'Dirk', 'K', 'Evelyn', '815-954-4584', 'Wellpoint Inc.'),
-(7, 'Ike', 'D', 'Quigley', '205-575-9561', 'Wellpoint Inc.'),
-(8, 'Zackary', 'H', 'West', '202-587-3841', 'Kaiser Foundation'),
-(9, 'Noah', 'C', 'Henderson', '221-574-9832', 'Wellpoint Inc.'),
-(10, 'Jeb', 'A', 'Dean', '202-855-1961', 'Unitedhealth');
-
 --Admit Data
 insert into Admit values
 (2, 2, 1, '2014-01-15 13:45', 'out', '4', '2014-01-15 14:15'),
+(2, 2, 1, '2014-03-07 13:45', 'in', '4', '2014-03-10 14:15'), 
+(2, 3, 1, '2014-04-01 13:45', 'in', '4', '2014-04-04 14:15'),
 (2, 3, 2, '2014-01-23 08:35', 'in', '8', '2014-01-25 15:21'),
+(2, 3, 2, '2014-03-23 08:35', 'in', '8', '2014-03-25 15:21'),
 (10, 5, 3, '2014-02-13 09:31', 'in', '8', '2014-02-14 10:11'),
 (2, 2, 4, '2014-01-01 09:31', 'out', '4', '2014-01-01 11:15'),
-(10, 3, 5, '2014-07-20 15:31', 'in', null, null),
+(10, 3, 5, '2014-07-01 15:31', 'out', 4, '2014-07-01 16:30'),
+(10, 2, 5, '2014-07-20 15:31', 'in', null, null),
 (2, 4, 6, '2014-07-21 06:11', 'in', null, null),
 (10, 7, 7, '2014-04-13 17:14', 'in', '4', '2014-04-17 12:30'),
 (10, 2, 8, '2014-03-14 09:24', 'out', '8', '2014-03-14 10:12'),
 (10, 2, 9, '2014-05-11 12:59', 'out', '8', '2014-05-11 13:41'),
-(10, 1, 10, '2014-05-22 10:02', 'in', '4', '2014-06-01 12:01');
+(10, 1, 10, '2014-05-22 10:02', 'in', '4', '2014-06-01 12:01'),
+(10, 1, 10, '2014-06-22 10:02', 'in', '4', '2014-07-01 12:01'),
+(2, 2, 10, '2014-07-22 10:02', 'in', '4', '2014-08-01 12:01'),
+(10, 3, 10, '2014-08-22 10:02', 'in', '4', '2014-09-01 12:01');
 
 --VolProvide Data
 insert into VolProvide values

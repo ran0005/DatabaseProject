@@ -1,16 +1,17 @@
-drop table if exists Employee;
-drop table if exists Volunteer;
-drop table if exists Services;
+drop table if exists Orders cascade;
+drop table if exists Employee cascade;
+drop table if exists Volunteer cascade;
+drop table if exists Services cascade;
 drop table if exists Treatment;
-drop table if exists Patient;
-drop table if exists Diagnosis;
+drop table if exists Patient cascade;
+drop table if exists Diagnosis cascade;
 drop table if exists Room;
 drop table if exists Admit;
 drop table if exists VolProvide;
 drop table if exists StaffProvide;
 drop table if exists AssignDoc;
-drop table if exists Orders;
 drop table if exists Administers;
+drop view if exists VisitIntervals;
 
 create table Employee (
 	empID integer primary key,
@@ -32,7 +33,11 @@ create table Volunteer (
 
 create table Services (
 	servType text primary key,
+<<<<<<< HEAD:sql/hospitalDB.sql
 	staffOnly boolean not null check(staffOnly in (0,1))
+=======
+	staffOnly boolean not null,
+>>>>>>> a183d0ae23d451db9db3f26f2d1cf198e7b20de4:hospitalDB.txt
 	check (servType in ('Gift shop','Info desk','Snack carts','Reading carts','Cafeteria','Janitorial'))
 );
 
@@ -131,4 +136,21 @@ create table Administers (
 	foreign key (docOrderID, treatID, patID, orderTime) references Orders (empID, treatID, patID, orderTime),
 	foreign key (empAdministerID) references Employee (empID),
 	primary key (docOrderID, treatID, patID, orderTime, empAdministerID)
+);
+
+create view VisitIntervals as 
+(
+	select patID, st1, min(st2::timestamp - st1::timestamp) timeBetween
+	from 
+	(
+		select patID, startTime as st1
+		from Admit
+		where endtime is not null
+	) s1 join
+	(
+		select patID, startTime as st2
+		from Admit
+	) s2 using (patID)
+	where s1.st1 < s2.st2
+	group by patID, st1
 );
