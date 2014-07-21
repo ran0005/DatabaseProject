@@ -46,11 +46,29 @@ public interface Queries {
 	String B9;
 	String B10;
 	//C
-	String C1;
-	String C2;
-	String C3;
-	String C4;
-	String C5;
+	*/
+	String C1 = "select Diagnosis.diagID, dName, occurences from Diagnosis join "
+		+ "( select diagID, count(*) as occurences from Admit where patType = 'in' "
+		+ "group by diagID )as r using (diagID) order by occurences desc";
+	
+	String C2 = "select Diagnosis.diagID, dName, occurences from Diagnosis join "
+		+ "( select diagID, count(*) as occurences from Admit where patType = 'out'"
+		+ " group by diagID ) as r using (diagID) order by occurences desc";
+	
+	String C3 = "select Diagnosis.diagID, dName, occurences from Diagnosis join "
+		+ "( select diagID, count(*) as occurences from Admit group by diagID "
+		+ ") as r using (diagID) order by occurences desc";
+		
+	String C4 = "select Treatment.treatID, tName, occurences from Treatment join "
+		+ "( select treatID, count(*) as occurences from Orders group by treatID "
+		+ ") as r using (treatID) order by occurences desc";
+		
+	String C5 = "select Treatment.treatID, tName, occurences from Treatment join "
+		+ "( select treatID, count(*) as occurences from (	select patID from Admit "
+		+ "where patType = 'in'	) as r join ( select patID, treatID from Orders "
+		+ ") as r1 using (patID) group by treatID ) as r3 using (treatID) "
+		+ "order by occurences desc";
+	/*
 	String C6;
 	String C7;
 	String C8;
