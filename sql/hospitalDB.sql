@@ -6,7 +6,7 @@ drop table if exists Treatment;
 drop table if exists Patient cascade;
 drop table if exists Diagnosis cascade;
 drop table if exists Room;
-drop table if exists Admit;
+drop table if exists Admit cascade;
 drop table if exists VolProvide;
 drop table if exists StaffProvide;
 drop table if exists AssignDoc;
