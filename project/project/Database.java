@@ -45,6 +45,11 @@ public class Database implements Queries {
 		tables.put("assignDoc", assigndoc);
 		tables.put("orders", orders);
 		tables.put("administers", administers);
+		tables.put("C1", C1);
+		tables.put("C2", C2);
+		tables.put("C3", C3);
+		tables.put("C4", C4);
+		tables.put("C5", C5);
 	}
 
 	private static final HashMap<String, Table> ic;
@@ -96,7 +101,7 @@ public class Database implements Queries {
 
 				while (rs.next()) {
 					for (int i = 0; i < col; ++i) {
-						System.out.print(rs.getString(i + 1));
+						System.out.print(rs.getString(i + 1) + " ");
 					}
 					System.out.println();
 				}
