@@ -45,11 +45,22 @@ public class Database implements Queries {
 		tables.put("assignDoc", assigndoc);
 		tables.put("orders", orders);
 		tables.put("administers", administers);
+		tables.put("B5", B5);
+		tables.put("B6", B6);
+		tables.put("B7", B7);
+		tables.put("B9", B9);
+		tables.put("B10", B10);
 		tables.put("C1", C1);
 		tables.put("C2", C2);
 		tables.put("C3", C3);
 		tables.put("C4", C4);
 		tables.put("C5", C5);
+		tables.put("D1", D1);
+		tables.put("D2", D2);
+		tables.put("D3", D3);
+		tables.put("D4", D4);
+		tables.put("D5", D5);
+		tables.put("D6", D6);
 	}
 
 	private static final HashMap<String, Table> ic;
