@@ -23,8 +23,8 @@ public class Menu {
 				System.out.println("Please choose an option");
 				System.out.println("\t1. Add a New Patient");
 				System.out.println("\t2. Add a New Worker");
-				System.out.println("\t3. View Patient Options (Admitting, ordering Treatments, ect.)");
-				System.out.println("\t4. View Hospital Options (Add Treatment, Room, ect.)");
+				System.out.println("\t3. View Patient Options (Admitting, ordering Treatments, etc...)");
+				System.out.println("\t4. View Hospital Options (Add Treatment, Room, etc...)");
 				System.out.println("\t5. Back to Home");
 				System.out.print("Input command: ");
 				command = br.readLine().trim();
@@ -149,7 +149,6 @@ public class Menu {
 	public void viewMenu(){
 	
 	}
-}
 	
 	public void hospitalOptionMenue(){
 	
