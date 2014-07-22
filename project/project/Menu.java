@@ -145,16 +145,5 @@ public class Menu {
 	public void hospitalOptionMenu(){
 	
 	}
-	
-	public void viewMenu(){
-	
-	}
-	
-	public void hospitalOptionMenue(){
-	
-	}
-	
-	public void viewMenue(){
-	
-	}
+
 }
