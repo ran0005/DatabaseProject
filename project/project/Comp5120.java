@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+
 public class Comp5120 {
 
 	public static void main(String[] args) {
@@ -12,34 +13,25 @@ public class Comp5120 {
 		Database db = new Database();
 		db.connect();
 		String command = null;
+		Menu m = new Menu(db);
 
 		try {
 			while (true) {
-				System.out.println("type help for info");
+				System.out.println("\n______Hospital Database______");
+				System.out.println("Please choose an option");
+				System.out.println("\t1. Add to Hospital Database");
+				System.out.println("\t2. View Database Statistics");
+				System.out.println("\t3. Quit Database");
 				System.out.print("Input command: ");
 				command = br.readLine().trim();
-				if (command.equals("help")) {
-					System.out.println("table:\t access tables");
-					System.out.println("insert:\t insert into tables");
-					System.out.println("display:\t shows all table names");
-					System.out.println("commands:\t shows all insert keys");
-				} else if (command.equals("table")) {
-					System.out.print("Input choice table: ");
-					String str = br.readLine();
-					db.execute(str);
-				} else if (command.equals("insert")) {
-					System.out.print("Input statement: ");
-					String st = br.readLine();
-					db.add(st, br);
-				} else if (command.equals("display")) {
-					db.display();
-				} else if (command.equals("commands")) {
-					db.commands();
-				} else if (command.equals("quit")) {
+				if (command.equals("1"))
+					m.insertMenu();
+				else if (command.equals("2"))
+					m.viewMenu();
+				else if (command.equals("3"))
 					break;
-				} else {
-					System.out.println("Invalid command type help for options");
-				}
+				else
+					System.out.println("Invalid command");
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
