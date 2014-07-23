@@ -45,6 +45,10 @@ public class Database implements Queries {
 		tables.put("assignDoc", assigndoc);
 		tables.put("orders", orders);
 		tables.put("administers", administers);
+		tables.put("B1", B1);
+		tables.put("B2", B2);
+		tables.put("B3", B3);
+		tables.put("B4", B4);
 		tables.put("B5", B5);
 		tables.put("B6", B6);
 		tables.put("B7", B7);
