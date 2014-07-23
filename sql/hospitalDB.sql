@@ -112,26 +112,24 @@ primary key (primaryID,secondaryID,patID,assignTime)
 );
 
 create table Orders (
-empID integer,
-treatID integer,
-patID integer,
-orderTime text,
+orderID integer,
+empID integer not null,
+treatID integer not null,
+patID integer not null,
+orderTime text not null,
 foreign key (empID) references Employee(empID),
 foreign key (treatID) references Treatment(treatID),
 foreign key (patID) references Patient(patID),
-primary key (empID,treatID,patID,orderTime)
+primary key (orderID)
 );
 
 create table Administers (
-docOrderID integer,
-treatID integer,
-patID integer,
-orderTime text,
+orderID integer,
 empAdministerID int,
-adminTime text not null,
-foreign key (docOrderID, treatID, patID, orderTime) references Orders (empID, treatID, patID, orderTime),
+adminTime text,
+foreign key (orderID) references Orders (orderID),
 foreign key (empAdministerID) references Employee (empID),
-primary key (docOrderID, treatID, patID, orderTime, empAdministerID)
+primary key (orderID, empAdministerID, adminTime)
 );
 
 create view VisitIntervals as
