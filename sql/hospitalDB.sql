@@ -60,7 +60,7 @@ insurance text not null
 
 create table Room (
 roomNum integer primary key,
-patID integer,
+patID integer unique,
 empID integer,
 foreign key(patID) references Patient(patID),
 foreign key(empID) references Employee(empID)
