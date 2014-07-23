@@ -31,27 +31,19 @@ public class Admit extends Table {
 		temp = br.readLine();
 
 		pst.setInt(3, Integer.parseInt(temp));
-		
-		// I think this should be set by default to null along with endTime. And it will be updated 
-		// when the patient is checked out, via an update to the entry.
-		System.out.print("Input value for " + "dischargeAdminID" + ": ");
+      
+      System.out.print("Input value for " + "startTime" + ": ");
 		temp = br.readLine();
 
-		pst.setInt(4, Integer.parseInt(temp));
-
-		System.out.print("Input value for " + "startTime" + ": ");
+		pst.setString(4, temp);
+      
+      System.out.print("Input value for " + "patType" + ": ");
 		temp = br.readLine();
 
 		pst.setString(5, temp);
+      
+		pst.setInt(6, java.sql.Types.INTEGER);
 
-		System.out.print("Input value for " + "patType" + ": ");
-		temp = br.readLine();
-
-		pst.setString(6, temp);
-
-		System.out.print("Input value for " + "endTime" + ": ");
-		temp = br.readLine();
-
-		pst.setString(7, temp);
+		pst.setString(7, null);
 	}
 }
