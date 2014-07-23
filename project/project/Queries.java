@@ -27,8 +27,9 @@ public interface Queries {
 	String volProvideinsert = "insert into volprovide values" + "(?,?,?)";
 	String staffProvideinsert = "insert into staffprovide values" + "(?,?)";
 	String assignDocinsert = "insert into assigndoc values" + "(?,?,?,?)";
-	String ordersinsert = "insert into orders values" + "(?,?,?,?)";
-	String administersinsert = "insert into administers values" + "(?,?,?,?,?,?)";
+	String ordersinsert = "insert into orders values" + "(?,?,?,?,?)";
+	String administersinsert = "insert into administers values" + "(?,?,?)";
+
 
 	///A
 	String A1 = "select roomNum, pLastName || ', ' || pFirstName || ' ' || pMInit as Name, startTime "
