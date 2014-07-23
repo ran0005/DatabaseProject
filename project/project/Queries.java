@@ -36,10 +36,21 @@ public interface Queries {
 	String A3;
 	*/
 	//B
-	String B1 = "select distinct patID, pLastName || ', ' || pFirstName || ' ' || pMInit, emergContact, insurance from Patient;";
-	String B2 = "select distinct patID, pLastName || ', ' || pFirstName || ' ' || pMInit from Patient join Admit using (patID) where patType = 'in' and endTime is null;";
-	String B3 = "select distinct patID, pLastName || ', ' || pFirstName || ' ' || pMInit from patient join Admit using (patID) where startTime >= ? and startTime <= ? and patType ='in';";
-	String B4 = "select distinct patID, pLastName || ', ' || pFirstName || ' ' || pMInit from patient join Admit using (patID) where endTime >= ? and endTime <= ?;";
+	String B1 = "select distinct patID, pLastName || ', ' || pFirstName || ' ' || pMInit, "
+			+ "emergContact, insurance from Patient;";
+	
+	String B2 = "select distinct patID, pLastName || ', ' || pFirstName || ' ' || pMInit "
+			+ "from Patient join Admit using (patID) "
+			+ "where patType = 'in' and endTime is null;";
+	
+	String B3 = "select distinct patID, pLastName || ', ' || pFirstName || ' ' || pMInit from "
+			+ "patient join Admit using (patID) "
+			+ "where startTime >= ? and startTime <= ? and patType ='in';";
+	
+	String B4 = "select distinct patID, pLastName || ', ' || pFirstName || ' ' || pMInit "
+			+ "from patient join Admit using (patID) "
+			+ "where endTime >= ? and endTime <= ?;";
+	
 	String B5 = "select patid, plastname||','||pfirstname||' '||pminit as name from patient "
 				+ "join admit using (patid) "
 				+ "where pattype = 'out' and endtime is null;";
