@@ -15,35 +15,21 @@ public class Administers extends Table {
 	@Override
 	public void getPreparedStatement(BufferedReader br, PreparedStatement pst) throws IOException, NumberFormatException, SQLException {
 		String temp = "";
-		
-		System.out.print("Input value for " + "docOrderID" + ": " );
+      
+		System.out.print("Input value for " + "OrderID" + ": " );
 		temp = br.readLine();
-		
-		pst.setInt(1, Integer.parseInt(temp));
-		
-		System.out.print("Input value for " + "treatID" + ": " );
+      
+      pst.setInt(1, Integer.parseInt(temp));
+      		
+		System.out.print("Input value for " + "empAdministerID" + ": " );
 		temp = br.readLine();
 		
 		pst.setInt(2, Integer.parseInt(temp));
 		
-		System.out.print("Input value for " + "patID" + ": " );
-		temp = br.readLine();
-		
-		pst.setInt(3, Integer.parseInt(temp));
-		
-		System.out.print("Input value for " + "empAdministerID" + ": " );
-		temp = br.readLine();
-		
-		pst.setInt(4, Integer.parseInt(temp));
-		
-		System.out.print("Input value for " + "orderTime" + ": " );
-		temp = br.readLine();
-		
-		pst.setString(5, temp);
-		
 		System.out.print("Input value for " + "adminTime" + ": " );
 		temp = br.readLine();
 		
-		pst.setString(6, temp);
+		pst.setString(3, temp);
 	}
 }
+
