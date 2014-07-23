@@ -27,9 +27,8 @@ public interface Queries {
 	String volProvideinsert = "insert into volprovide values" + "(?,?,?)";
 	String staffProvideinsert = "insert into staffprovide values" + "(?,?)";
 	String assignDocinsert = "insert into assigndoc values" + "(?,?,?,?)";
-	String ordersinsert = "insert into orders values" + "(?,?,?,?,?)";
-	String administersinsert = "insert into administers values" + "(?,?,?)";
-
+	String ordersinsert = "insert into orders values" + "(?,?,?,?)";
+	String administersinsert = "insert into administers values" + "(?,?,?,?,?,?)";
 
 	///A
 	String A1 = "select roomNum, pLastName || ', ' || pFirstName || ' ' || pMInit as Name, startTime "
@@ -166,11 +165,49 @@ public interface Queries {
 		+ "( select treatID, count(*) as occurences from ( select distinct patID from Admit "
 		+ "where patType = 'in'	) as r join ( select patID, treatID from Orders "
 		+ ") as r1 using (patID) group by treatID ) as r3 using (treatID) "
-		+ "order by occurences desc";
-	/*
-	String C6;
-	String C7;
-	String C8;*/
+		+ "order by occurences desc;";
+	
+	//String C6;
+	String C7 = "select dName, count(dName) "
+		+ "from diagnosis join "
+		+ "( "
+		+ "	select patID, diagID "
+		+ "	from admit join "
+		+ "	( "
+		+ "		select patID, COUNT(patID) as admissions "
+		+ "		from admit "
+		+ "		group by patID "
+		+ "		having count(patID) = (select MAX(admissions) from ( "
+		+ "			select patID, COUNT(patID) as admissions "
+		+ "			from admit "
+		+ "			group by patID "
+		+ "			) as a1) "
+		+ "	) as a2 using (patID) "
+		+ ") as d1 using (diagID) "
+		+ "group by dName "
+		+ "order by count(dName);";
+		
+	String C8 = "select docName, patName, "
+		+ "eLastName || ', ' || eFirstName || ' ' || eMInit as empName "
+		+ "from employee join "
+		+ "( "
+		+ "	select eLastName || ', ' || eFirstName || ' ' || eMInit as docName, "
+		+ "	patName, "
+		+ "	adminID "
+		+ "	from employee join "
+		+ "	( "
+		+ "		select pLastName || ', ' || pFirstName || ' ' || pMInit as patName, "
+		+ "		docID, "
+		+ "		adminID "
+		+ "		from patient join "
+		+ "		( "
+		+ "			select empID as docID, empAdministerID as adminID, patID "
+		+ "			from Orders join "
+		+ "			Administers using (orderID) "
+		+ "			where orderID = ? "
+		+ "		) o1 on using (patID) "
+		+ "	) as p1 on (docID = empID) "
+		+ ") as e2 on (adminID = empID);";
 	//D
 	String D1 = "select * "
 				+ "from (select empID as ID, eLastName || ', ' || eFirstName || ' ' || eMInit as EmpName, eType as Type, eHiredate as DateOfHire "
