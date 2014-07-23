@@ -105,7 +105,7 @@ B6. List all patients who have received outpatient services within a given date 
 
 select patid, plastname||','||pfirstname||' '||pminit as name from patient
 join admit using (patid)
-where pattype = 'out' and substr(1,4)||substr(6,2)||substr(9,2) between '20140101' and '20140501';
+where pattype = 'out' and substr(starttime,1,4)||substr(starttime,6,2)||substr(starttime,9,2) between '20140101' and '20140501';
 
 B7. For a given patient (either patient identification number or name), list all admissions to the hospital along with the diagnosis for each admission.
 
