@@ -1,7 +1,6 @@
 package project;
 
 import java.io.BufferedReader;
-import java.io.StringReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -336,26 +335,22 @@ public class Menu {
 				System.out.println("\n______Patient Information______");
 				System.out.println("Please choose an option");
 				System.out.println("\t1. List All Patients");
-				System.out.println("\t2. List Current Admitted Patients");
+				System.out.println("\t2. List Currently Admitted Inpatients");
 				System.out.println("\t3. List All Patients Receiving Inpatient Services Between a Date Range");
 				System.out.println("\t4. List All Discharged Patients Within a Date Range");
-				System.out.println("\t5. List Current Outpatients");
+				System.out.println("\t5. List Currently Admitted Outpatients");
 				System.out.println("\t6. More Options");
 				System.out.println("\t7. Back");
 				System.out.print("Input command: ");
 				command = br.readLine().trim();
-				if (command.equals("1")){
-					//db.execute("B1");
-					}
-				else if (command.equals("2")){
-					//db.execute("B2");
-					}
-				else if (command.equals("3")){
-					//db.execute("B3");
-					}
-				else if (command.equals("4")){
-					//db.execute("B4");
-					}
+				if (command.equals("1"))
+					db.execute("B1");
+				else if (command.equals("2"))
+					db.execute("B2");
+				else if (command.equals("3"))
+					db.execute("B3");
+				else if (command.equals("4"))
+					db.execute("B4");
 				else if (command.equals("5"))
 					db.execute("B5");
 				else if (command.equals("6"))
@@ -388,9 +383,8 @@ public class Menu {
 					db.execute("B6");
 				else if (command.equals("2"))
 					db.execute("B7");
-				else if (command.equals("3")){
-					//db.execute("B8");
-					}
+				else if (command.equals("3"))
+					db.execute("B8");
 				else if (command.equals("4"))
 					db.execute("B9");
 				else if (command.equals("5"))
