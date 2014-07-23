@@ -30,26 +30,55 @@ public interface Queries {
 	String ordersinsert = "insert into orders values" + "(?,?,?,?)";
 	String administersinsert = "insert into administers values" + "(?,?,?,?,?,?)";
 
-	/*///A
-	String A1;
-	String A2;
-	String A3;
-	*/
+	///A
+	String A1 = "select roomNum, pLastName || ', ' || pFirstName || ' ' || pMInit as Name, startTime "
+			+ "from patient join "
+			+ "( "
+			+ "	select roomNum, patID, startTime "
+			+ "	from admit join "
+			+ "	( "
+			+ "		select roomNum, patID "
+			+ "		from Room "
+			+ "		where patID IS NOT NULL "
+			+ "	) as a1 using (patID) "
+			+ "	where endTime IS NULL "
+			+ ") as a2 using (patID) "
+			+ "order by roomNum;";
+			
+	String A2 = "select roomNum "
+			+ "from Room "
+			+ "where patID IS NULL;";
+			
+	String A3 = "select roomNum, pLastName || ', ' || pFirstName || ' ' || pMInit as Name, startTime "
+			+ "from room left join "
+			+ "( "
+			+ "	select patID, pFirstName, pMInit, pLastName, startTime "
+			+ "	from patient join "
+			+ "	( "
+			+ "		select patID, startTime "
+			+ "		from admit "
+			+ "		where endTime IS NULL "
+			+ "	) as p1 using (patID) "
+			+ ") as p2 using (patID);";
+	
 	//B
-	String B1 = "select distinct patID, pLastName || ', ' || pFirstName || ' ' || pMInit, "
+	String B1 = "select distinct patID, pLastName || ', ' || pFirstName || ' ' || pMInit as Name, "
 			+ "emergContact, insurance from Patient;";
 	
-	String B2 = "select distinct patID, pLastName || ', ' || pFirstName || ' ' || pMInit "
+	String B2 = "select distinct patID, pLastName || ', ' || pFirstName || ' ' || pMInit as Name"
 			+ "from Patient join Admit using (patID) "
 			+ "where patType = 'in' and endTime is null;";
 	
-	String B3 = "select distinct patID, pLastName || ', ' || pFirstName || ' ' || pMInit from "
-			+ "patient join Admit using (patID) "
-			+ "where startTime >= ? and startTime <= ? and patType ='in';";
-	
-	String B4 = "select distinct patID, pLastName || ', ' || pFirstName || ' ' || pMInit "
+	String B3 = "select distinct patID, pLastName || ', ' || pFirstName || ' ' || pMInit as Name "
 			+ "from patient join Admit using (patID) "
-			+ "where endTime >= ? and endTime <= ?;";
+			+ "where startTime::date >= ?::date and startTime::date <= ?::date "
+			+ "and patType ='in' "
+			+ "order by patID;";
+	
+	String B4 = "select distinct patID, pLastName || ', ' || pFirstName || ' ' || pMInit as Name"
+			+ "from patient join Admit using (patID) "
+			+ "where endTime::date >= ?::date and endTime::date <= ?::date "
+			+ "order by patID;";
 	
 	String B5 = "select patid, plastname||','||pfirstname||' '||pminit as name from patient "
 				+ "join admit using (patid) "
