@@ -121,7 +121,7 @@ public interface Queries {
 		+ ") as r using (treatID) order by occurences desc";
 		
 	String C5 = "select Treatment.treatID, tName, occurences from Treatment join "
-		+ "( select treatID, count(*) as occurences from (	select patID from Admit "
+		+ "( select treatID, count(*) as occurences from ( select distinct patID from Admit "
 		+ "where patType = 'in'	) as r join ( select patID, treatID from Orders "
 		+ ") as r1 using (patID) group by treatID ) as r3 using (treatID) "
 		+ "order by occurences desc";
