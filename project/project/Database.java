@@ -151,6 +151,30 @@ public class Database implements Queries {
 			e.printStackTrace();
 		}
 	}
+
+	public void add(String str, String comment, BufferedReader br) {
+		PreparedStatement pst = null;
+
+		try {
+			if (ic.containsKey(str)) {
+				pst = con.prepareStatement(ic.get(str).getStatement());
+				System.out.println(comment);
+				try {
+					ic.get(str).getPreparedStatement(br, pst);
+				} catch (NumberFormatException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				
+				pst.executeUpdate();
+			} else {
+				System.out.println("Query failed");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	public void display() {
 		for (String s : tables.keySet()) {

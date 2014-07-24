@@ -3,7 +3,7 @@ package project;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-
+import menu.Menu;
 
 public class Comp5120 {
 
@@ -12,10 +12,9 @@ public class Comp5120 {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		Database db = new Database();
 		db.connect();
-		String command = null;
 		Menu m = new Menu(db);
-
-		try {
+		/*try {
+			
 			while (true) {
 				System.out.println("\n______Hospital Database______");
 				System.out.println("Please choose an option");
@@ -35,6 +34,6 @@ public class Comp5120 {
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 }
