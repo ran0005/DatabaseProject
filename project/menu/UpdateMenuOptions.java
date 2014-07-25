@@ -1,6 +1,6 @@
 package menu;
 
-public interface UpdatetMenuOptions {
+public interface UpdateMenuOptions {
 
       public final String updateCheckoutMenu = "\n______Checkout Patient______\n"
          + "\t1. Checkout Inpatient\n"
