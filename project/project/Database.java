@@ -97,6 +97,9 @@ public class Database implements Queries {
 		uc.put("D4", new D4(con));
 		uc.put("D5", new D5(con));
 		uc.put("D6", new D6(con));
+		uc.put("U1", new U1(con));
+      		uc.put("U2", new U2(con));
+      		uc.put("U3", new U3(con));
 	}
 
 	public void connect() {
@@ -261,17 +264,22 @@ public class Database implements Queries {
 	}
 
 	public void update(String str, int type, BufferedReader br) {
-      PreparedStatement pst = null;
-      if (type == 1)
-         execute("B2");
-      else if (type == 2)
-         execute("B5");
-      else if (type == 3)
-         execute("U4");
+      		PreparedStatement pst = null;
+      		if (type == 1)
+         		execute("B2");
+      		else if (type == 2)
+        		   execute("B5");
+      		else if (type == 3)
+         		execute("U4");
          
 		try {
-			if (tables.containsKey(str)) {
-				pst = con.prepareStatement(tables.get(str));
+			if (uc.containsKey(str)) {
+				pst = uc.get(str).prepareStatement();
+            try {
+               uc.get(str).getPreparedStatement(br,pst);
+            } catch(IOException e){
+               e.printStackTrace();
+            }
 				pst.executeUpdate();
 			} else {
 				System.out.println("Query failed");
@@ -279,7 +287,8 @@ public class Database implements Queries {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-   }
+	 }
+		
    
    	public void pause(){
       		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
