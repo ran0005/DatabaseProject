@@ -1,6 +1,7 @@
 package project;
 
 import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -111,7 +112,8 @@ public class Database implements Queries {
 		ResultSet rs = null;
 		ResultSetMetaData rsmd = null;
 		StringBuilder table = new StringBuilder();
-
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
 		try {
 			if (tables.containsKey(str)) {
 				pst = con.prepareStatement(tables.get(str));
