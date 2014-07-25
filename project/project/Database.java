@@ -11,26 +11,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.HashMap;
 
-import tables.Administers;
-import tables.Admit;
-import tables.AssignDoc;
-import tables.B3;
-import tables.B4;
-import tables.B6;
-import tables.B7;
-import tables.B8;
-import tables.Diagnosis;
-import tables.Employee;
-import tables.Orders;
-import tables.Patient;
-import tables.Room;
-import tables.Services;
-import tables.StaffProvide;
-import tables.Table;
-import tables.Treatment;
-import tables.UpdateTable;
-import tables.VolProvide;
-import tables.Volunteer;
+import tables.*;
 
 public class Database implements Queries {
 	 static Connection con = null;
@@ -109,6 +90,13 @@ public class Database implements Queries {
 	public void populateUpdateCommands() {
 		uc.put("B3", new B3(con));
 		uc.put("B4", new B4(con));
+		uc.put("B6", new B6(con));
+		uc.put("B7", new B7(con));
+		uc.put("B8", new B8(con));
+		uc.put("C8", new C8(con));
+		uc.put("D4", new D4(con));
+		uc.put("D5", new D5(con));
+		uc.put("D6", new D6(con));
 	}
 
 	public void connect() {
@@ -273,13 +261,13 @@ public class Database implements Queries {
 	}
 
 	public void update(String str, int type, BufferedReader br) {
-      		PreparedStatement pst = null;
-      		if (type == 1)
-         		execute("B2");
-      		else if (type == 2)
-        		execute("B5");
-      		else if (type == 3)
-         		execute("U4");
+      PreparedStatement pst = null;
+      if (type == 1)
+         execute("B2");
+      else if (type == 2)
+         execute("B5");
+      else if (type == 3)
+         execute("U4");
          
 		try {
 			if (tables.containsKey(str)) {
