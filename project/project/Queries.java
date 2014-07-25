@@ -164,9 +164,9 @@ public interface Queries {
 		+ "( select diagID, count(*) as occurences from Admit group by diagID "
 		+ ") as r using (diagID) order by occurences desc";
 		
-	String C4 = "select Treatment.treatID, tName, occurences from Treatment join "
-		+ "( select treatID, count(*) as occurences from Orders group by treatID "
-		+ ") as r using (treatID) order by occurences desc";
+	String C4 = "select Treatment.treatID, tName, occurrences from Treatment join "
+		+ "( select treatID, count(*) as occurrences from Orders group by treatID "
+		+ ") as r using (treatID) order by occurrences desc";
 		
 	String C5 = "select Treatment.treatID, tName, occurences from Treatment join "
 		+ "( select treatID, count(*) as occurences from ( select distinct patID from Admit "

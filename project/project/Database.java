@@ -120,19 +120,22 @@ public class Database implements Queries {
 				rsmd = rs.getMetaData();
 
 				int numOfCol = rsmd.getColumnCount();
-				int colWidth = 20;
-			    String colFormat = "%-" + colWidth + "s";
+				int colWidth;
+				String colFormats[] = new String[numOfCol];
 
 			    table.append("\n");
 			    
 			    for (int i = 1; i <= numOfCol; i++) {
-			    	table.append(String.format(colFormat, rsmd.getColumnLabel(i)));
+			    	colWidth = rsmd.getColumnDisplaySize(i);
+			    	if (colWidth > 40 || colWidth < 1) colWidth = 27;
+			    	colFormats[i - 1] = "%-" + colWidth + "s";
+			    	table.append(String.format(colFormats[i-1], rsmd.getColumnLabel(i)));
 			    }
 			    table.append("\n");
 			    
 				while (rs.next()) {
 					for (int i = 1; i <= numOfCol; ++i) {
-						table.append(String.format(colFormat, rs.getString(i)));
+						table.append(String.format(colFormats[i - 1], rs.getString(i)));
 					}
 					table.append("\n");
 				}
