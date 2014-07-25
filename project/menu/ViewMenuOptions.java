@@ -56,7 +56,7 @@ public interface ViewMenuOptions {
 			+ "\t3. HashMap All Administered Treatments for a Given Patient\n"
 			+ "\t4. HashMap All Patients That Were Admitted within 30 Days of Last Discharge\n"
 			+ "\t5. View All Patient Adminttance Statistics\n"
-			+ "\t6. Back"
+			+ "\t6. Back\n"
 			+ "Input command: ";
 
 	public  final String viewTreatDiagMenu = "\n______Treatment and Diagnosis Information______\n"
@@ -68,7 +68,7 @@ public interface ViewMenuOptions {
 			+ "\t6. HashMap Treatments Performed on Outpatients\n"
 			+ "\t7. HashMap Diagnoses of Patients with the Highest Admissions\n"
 			+ "\t8. HashMap all Employees involved with a Given Treatment\n"
-			+ "\t9. Back" + "Input command: ";
+			+ "\t9. Back\n" + "Input command: ";
 
 	public  final String viewWorkerMenu = "\n______Worker Information______\n"
 			+ "\t1. HashMap All Hospital Workers\n"

@@ -189,7 +189,7 @@ public class Menu implements ViewMenuOptions, InsertMenuOptions {
 			try {
 				System.out.print(message);
 				int command = Integer.parseInt(br.readLine());
-				if (command > hm.size() + 1) {
+				if (command < hm.size() + 1) {
 					hm.get(command).runCommand();
 				} else if (command == hm.size() + 1) {
 					break;

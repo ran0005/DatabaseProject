@@ -110,6 +110,7 @@ public class Database implements Queries {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		ResultSetMetaData rsmd = null;
+		StringBuilder table = new StringBuilder();
 
 		try {
 			if (tables.containsKey(str)) {
@@ -118,16 +119,25 @@ public class Database implements Queries {
 				rs = pst.getResultSet();
 				rsmd = rs.getMetaData();
 
-				int col = rsmd.getColumnCount();
+				int numOfCol = rsmd.getColumnCount();
+				int colWidth = 20;
+			    String colFormat = "%-" + colWidth + "s";
 
-				System.out.println();
-
+			    table.append("\n");
+			    
+			    for (int i = 1; i <= numOfCol; i++) {
+			    	table.append(String.format(colFormat, rsmd.getColumnLabel(i)));
+			    }
+			    table.append("\n");
+			    
 				while (rs.next()) {
-					for (int i = 0; i < col; ++i) {
-						System.out.print(rs.getString(i + 1) + " ");
+					for (int i = 1; i <= numOfCol; ++i) {
+						table.append(String.format(colFormat, rs.getString(i)));
 					}
-					System.out.println();
+					table.append("\n");
 				}
+				
+				System.out.println(table.toString());
 			} else {
 				System.out.println("Query failed");
 			}
