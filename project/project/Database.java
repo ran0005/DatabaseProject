@@ -75,6 +75,10 @@ public class Database implements Queries {
 		tables.put("D5", qD5);
 		tables.put("D6", qD6);
 		tables.put("D7", qD7);
+		tables.put("U1", qU1);
+      		tables.put("U2", qU2);
+		tables.put("U3", qU3);
+      		tables.put("U4", qU4);
 	}
 
 	private static final HashMap<String, Table> ic;
@@ -158,19 +162,6 @@ public class Database implements Queries {
 			e.printStackTrace();
 		}
 		
-		try
-      		{
-         		String tmp = null;
-		        while(true)
-	         	{
-            			System.out.print("Press enter to continue... ");
-			        tmp = br.readLine().trim();
-			        if (tmp != null)
-			        	break;
-        		}
-      		} catch (IOException e) {
-	      		e.printStackTrace();
-		}
 	}
 	
 	public void execute(String str, BufferedReader br) {
@@ -223,19 +214,6 @@ public class Database implements Queries {
 			e.printStackTrace();
 		}
 		
-		try
-      		{
-         		String tmp = null;
-		        while(true)
-	         	{
-            			System.out.print("Press enter to continue... ");
-			        tmp = br.readLine().trim();
-			        if (tmp != null)
-			        	break;
-        		}
-      		} catch (IOException e) {
-	      		e.printStackTrace();
-		}
 	}
 
 	public void add(String str, BufferedReader br) {
@@ -261,18 +239,7 @@ public class Database implements Queries {
 			e.printStackTrace();
 		}
 		
-		try{
-         		String tmp = null;
-		        while(true)
-	         	{
-            			System.out.print("Press enter to continue... ");
-			        tmp = br.readLine().trim();
-			        if (tmp != null)
-			        	break;
-        		}
-      		} catch (IOException e) {
-	      		e.printStackTrace();
-		}
+
 	}
 
 	public void add(String str, String comment, BufferedReader br) {
@@ -298,21 +265,45 @@ public class Database implements Queries {
 			e.printStackTrace();
 		}
 		
-		try
-      		{
+	}
+
+	public void update(String str, int type, BufferedReader br) {
+      PreparedStatement pst = null;
+      if (type == 1)
+         execute("B2");
+      else if (type == 2)
+         execute("B5");
+      else if (type == 3)
+         execute("U4");
+         
+		try {
+			if (tables.containsKey(str)) {
+				pst = con.prepareStatement(tables.get(str));
+				pst.executeUpdate();
+			} else {
+				System.out.println("Query failed");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+   }
+   
+   	public void pause(){
+      		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+      		try {
          		String tmp = null;
-		        while(true)
-	         	{
+			while(true)
+	      		{
             			System.out.print("Press enter to continue... ");
-			        tmp = br.readLine().trim();
-			        if (tmp != null)
-			        	break;
+				tmp = br.readLine().trim();
+				if (tmp != null)
+				      break;
         		}
       		} catch (IOException e) {
 	      		e.printStackTrace();
 		}
-	}
-	
+   }
+   
 	public void display() {
 		for (String s : tables.keySet()) {
 			System.out.println(s);
