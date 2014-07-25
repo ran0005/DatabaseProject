@@ -268,13 +268,13 @@ public class Database implements Queries {
 	}
 
 	public void update(String str, int type, BufferedReader br) {
-      PreparedStatement pst = null;
-      if (type == 1)
-         execute("B2");
-      else if (type == 2)
-         execute("B5");
-      else if (type == 3)
-         execute("U4");
+      		PreparedStatement pst = null;
+      		if (type == 1)
+         		execute("B2");
+      		else if (type == 2)
+        		execute("B5");
+      		else if (type == 3)
+         		execute("U4");
          
 		try {
 			if (tables.containsKey(str)) {
