@@ -105,7 +105,7 @@ public class Menu implements ViewMenuOptions, InsertMenuOptions, UpdateMenuOptio
 	{
 		{
 			put(1, new Command() { public void runCommand() { db.execute("B1"); db.pause();}; });
-			put(2, new Command() { public void runCommand() { db.execute("B2"); db.pause();}; });
+			put(2, new Command() { public void runCommand() { db.execute("B2", br); db.pause();}; });
 			put(3, new Command() { public void runCommand() { db.execute("B3"); db.pause();}; });
 			put(4, new Command() { public void runCommand() { db.execute("B4"); db.pause();}; });
 			put(5, new Command() { public void runCommand() { db.execute("B5"); db.pause();}; });
