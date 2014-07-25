@@ -30,7 +30,7 @@ public class B8 extends UpdateTable {
 	public void getPreparedStatement(BufferedReader br, PreparedStatement pst) throws IOException, NumberFormatException, SQLException {
 		String temp = "";
 		
-		System.out.println("Please enter the patient identifcation number: ");
+		System.out.print("Please enter the patient identifcation number: ");
 		temp = br.readLine();
 		pst.setInt(1, Integer.parseInt(temp));
 	}	

@@ -162,7 +162,7 @@ public class Database implements Queries {
 		ResultSet rs = null;
 		ResultSetMetaData rsmd = null;
 		StringBuilder table = new StringBuilder();
-		System.out.println(uc.get(str).getStatement());
+
 		try {
 			if (uc.containsKey(str)) {
 				pst = uc.get(str).prepareStatement();
