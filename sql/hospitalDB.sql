@@ -12,6 +12,7 @@ drop table if exists StaffProvide;
 drop table if exists AssignDoc;
 drop table if exists Administers;
 drop view if exists VisitIntervals;
+drop view if exists EmployeePatientInteraction cascade;
 
 create table Employee (
 empID integer primary key,
@@ -147,4 +148,31 @@ from Admit
 ) s2 using (patID)
 where s1.st1 < s2.st2
 group by patID, st1
+);
+
+create view EmployeePatientInteraction as 
+(
+	--The doctors who admitted the patients.
+	select distinct admitDocID, patID
+	from Admit
+	where patType = 'in'
+	union
+	--The doctors assigned to each patient.
+	select distinct secondaryID, patID
+	from AssignDoc join Admit using (patID)
+	where patType = 'in'
+	and assignTime::timestamp > startTime::timestamp and (endTime is null or assignTime::timestamp < endTime::timestamp)
+	union
+	--The doctors who ordered a treatment for a patient.
+	select distinct empID, patID
+	from Orders join Admit using (patID)
+	where patType = 'in'
+	and orderTime::timestamp > startTime::timestamp and (endTime is null or orderTime::timestamp < endTime::timestamp)
+	union
+	--The employees who administered a treatment for a patient.
+	select distinct empAdministerID, patID
+	from Administers join Orders using (orderID)
+	join Admit using (patID)
+	where patType = 'in'
+	and adminTime::timestamp > startTime::timestamp and (endTime is null or adminTime::timestamp < endTime::timestamp)
 );

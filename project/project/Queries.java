@@ -94,7 +94,13 @@ public interface Queries {
 				+ "join diagnosis using (diagid) "
 				+ "where patID = ?;";
 	
-	//String B8;
+	String B8 = "select plastname||','||pfirstname||' '||pminit as name, tname, starttime, orderTime from patient "
+				+ "join admit using (patid) "
+				+ "join orders using (patid) "
+				+ "join treatment using (treatid) "
+				+ "where patID = 8 "
+				+ "order by starttime desc, orderTime asc;";
+	
 	String B9 = "select Admit.patID, pLastName || ', ' || pFirstName ||' '|| pMInit as pName, dName, "
 			+ "eLastName || ', ' || eFirstName ||' '|| eMInit as eName "
 			+ "from Admit join Patient using (patID) "
@@ -167,7 +173,16 @@ public interface Queries {
 		+ ") as r1 using (patID) group by treatID ) as r3 using (treatID) "
 		+ "order by occurences desc;";
 	
-	//String C6;
+	String C6 = "select treatID, tname, count(tname) "
+		+ "	from orders join (select patID, startTime, endTime "
+		+ "		from admit "
+		+ "		where pattype = 'out') outpatients using (patID) "
+		+ "	join Treatment using (treatID)	 "
+		+ "	join Administers using (orderID) "
+		+ "	where orderTime::timestamp > startTime::timestamp and (endTime is null or orderTime::timestamp < endTime::timestamp) "
+		+ "	group by treatID, tname "
+		+ "	order by count(tname) desc;";
+				
 	String C7 = "select dName, count(dName) "
 		+ "from diagnosis join "
 		+ "( "
@@ -254,5 +269,14 @@ public interface Queries {
 				+ "	join Treatment using (treatID) "
 				+ "order by treatCount desc;";
 	
-	//String D7;
+	String D7 = "select empID, eLastName || ', ' || eFirstName || ' ' || eMInit as Name "
+				+ "from (select empID "
+				+ "from Employee "
+				+ "except "
+				+ "select distinct empID "
+				+ "from (select empID, patID "
+				+ "	from Employee, Patient "
+				+ "	except "
+				+ "	select * from EmployeePatientInteraction) NoInteraction) AllInteraction "
+				+ "join Employee using (empID);";
 }
