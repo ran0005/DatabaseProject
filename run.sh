@@ -1,13 +1,10 @@
 #!/bin/bash
 
-ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 (
 
-	cd $ROOT
-
-	# Use gradle! It's great! See this for an example: https://github.com/vmrob/aciddb-java-client
-	# Note the "build.gradle" file
+	cd $DIR
 
 
 	javac -cp lib/postgresql.jdbc41.jar -d bin project/project/* project/tables/* project/menu/*
