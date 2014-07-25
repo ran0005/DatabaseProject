@@ -15,8 +15,7 @@ public class D5 extends UpdateTable {
 	
 	public PreparedStatement prepareStatement() {
 		try {
-			System.out.println(con.toString());
-			return con.prepareStatement(st);
+			return con.prepareStatement(qD5);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

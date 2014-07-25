@@ -15,8 +15,7 @@ public class D4 extends UpdateTable {
 	
 	public PreparedStatement prepareStatement() {
 		try {
-			System.out.println(con.toString());
-			return con.prepareStatement(st);
+			return con.prepareStatement(qD4);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

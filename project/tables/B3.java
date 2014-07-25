@@ -15,7 +15,7 @@ public class B3 extends UpdateTable {
 	
 	public PreparedStatement prepareStatement() {
 		try {
-			return con.prepareStatement(st);
+			return con.prepareStatement(qB3);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
