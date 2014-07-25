@@ -1,6 +1,7 @@
 package project;
 
 import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -111,7 +112,8 @@ public class Database implements Queries {
 		ResultSet rs = null;
 		ResultSetMetaData rsmd = null;
 		StringBuilder table = new StringBuilder();
-
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
 		try {
 			if (tables.containsKey(str)) {
 				pst = con.prepareStatement(tables.get(str));
@@ -147,6 +149,20 @@ public class Database implements Queries {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		try
+      		{
+         		String tmp = null;
+		        while(true)
+	         	{
+            			System.out.print("Press enter to continue... ");
+			        tmp = br.readLine().trim();
+			        if (tmp != null)
+			        	break;
+        		}
+      		} catch (IOException e) {
+	      		e.printStackTrace();
+		}
 	}
 
 	public void add(String str, BufferedReader br) {
@@ -171,6 +187,19 @@ public class Database implements Queries {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		try{
+         		String tmp = null;
+		        while(true)
+	         	{
+            			System.out.print("Press enter to continue... ");
+			        tmp = br.readLine().trim();
+			        if (tmp != null)
+			        	break;
+        		}
+      		} catch (IOException e) {
+	      		e.printStackTrace();
+		}
 	}
 
 	public void add(String str, String comment, BufferedReader br) {
@@ -194,6 +223,20 @@ public class Database implements Queries {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}
+		
+		try
+      		{
+         		String tmp = null;
+		        while(true)
+	         	{
+            			System.out.print("Press enter to continue... ");
+			        tmp = br.readLine().trim();
+			        if (tmp != null)
+			        	break;
+        		}
+      		} catch (IOException e) {
+	      		e.printStackTrace();
 		}
 	}
 	
