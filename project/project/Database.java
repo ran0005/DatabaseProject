@@ -11,26 +11,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.HashMap;
 
-import tables.Administers;
-import tables.Admit;
-import tables.AssignDoc;
-import tables.B3;
-import tables.B4;
-import tables.B6;
-import tables.B7;
-import tables.B8;
-import tables.Diagnosis;
-import tables.Employee;
-import tables.Orders;
-import tables.Patient;
-import tables.Room;
-import tables.Services;
-import tables.StaffProvide;
-import tables.Table;
-import tables.Treatment;
-import tables.UpdateTable;
-import tables.VolProvide;
-import tables.Volunteer;
+import tables.*;
 
 public class Database implements Queries {
 	 static Connection con = null;
