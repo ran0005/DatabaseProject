@@ -30,11 +30,11 @@ public class B4 extends UpdateTable {
 	public void getPreparedStatement(BufferedReader br, PreparedStatement pst) throws IOException, NumberFormatException, SQLException {
 		String temp = "";
 		
-		System.out.println("Please enter the start date (YYYY-MM-DD): ");
+		System.out.print("Please enter the start date (YYYY-MM-DD): ");
 		temp = br.readLine();
 		pst.setString(1, temp);
 		
-		System.out.println("Please enter the end date (YYYY-MM-DD): ");
+		System.out.print("Please enter the end date (YYYY-MM-DD): ");
 		temp = br.readLine();
 		pst.setString(2, temp);
 	}	

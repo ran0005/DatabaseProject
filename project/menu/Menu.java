@@ -93,9 +93,9 @@ public class Menu implements ViewMenuOptions, InsertMenuOptions, UpdateMenuOptio
 	public final HashMap<Integer, Command> viewMorePatientHashMap = new HashMap<Integer, Command>()
 	{
 		{
-			put(1, new Command() { public void runCommand() { db.execute("B6"); db.pause();}; });
-			put(2, new Command() { public void runCommand() { db.execute("B7"); db.pause();}; });
-			put(3, new Command() { public void runCommand() { db.execute("B8"); db.pause();}; });
+			put(1, new Command() { public void runCommand() { db.execute("B6", br); db.pause();}; });
+			put(2, new Command() { public void runCommand() { db.execute("B7", br); db.pause();}; });
+			put(3, new Command() { public void runCommand() { db.execute("B8", br); db.pause();}; });
 			put(4, new Command() { public void runCommand() { db.execute("B9"); db.pause();}; });
 			put(5, new Command() { public void runCommand() { db.execute("B10"); db.pause();}; });
 		}
@@ -105,9 +105,9 @@ public class Menu implements ViewMenuOptions, InsertMenuOptions, UpdateMenuOptio
 	{
 		{
 			put(1, new Command() { public void runCommand() { db.execute("B1"); db.pause();}; });
-			put(2, new Command() { public void runCommand() { db.execute("B2", br); db.pause();}; });
-			put(3, new Command() { public void runCommand() { db.execute("B3"); db.pause();}; });
-			put(4, new Command() { public void runCommand() { db.execute("B4"); db.pause();}; });
+			put(2, new Command() { public void runCommand() { db.execute("B2"); db.pause();}; });
+			put(3, new Command() { public void runCommand() { db.execute("B3", br); db.pause();}; });
+			put(4, new Command() { public void runCommand() { db.execute("B4", br); db.pause();}; });
 			put(5, new Command() { public void runCommand() { db.execute("B5"); db.pause();}; });
 			put(6, new Command() { public void runCommand() { menu(viewMorePatientMenu, viewMorePatientHashMap);}; });
 		}
@@ -123,7 +123,7 @@ public class Menu implements ViewMenuOptions, InsertMenuOptions, UpdateMenuOptio
 			put(5, new Command() { public void runCommand() { db.execute("C5"); db.pause();}; });
 			put(6, new Command() { public void runCommand() { db.execute("C6"); db.pause();}; });
 			put(7, new Command() { public void runCommand() { db.execute("C7"); db.pause();}; });
-			put(8, new Command() { public void runCommand() { db.execute("C8"); db.pause();}; });
+			put(8, new Command() { public void runCommand() { db.execute("C8", br); db.pause();}; });
 		}	
 	};
 
@@ -133,9 +133,9 @@ public class Menu implements ViewMenuOptions, InsertMenuOptions, UpdateMenuOptio
 			put(1, new Command() { public void runCommand() { db.execute("D1"); db.pause();}; });
 			put(2, new Command() { public void runCommand() { db.execute("D2"); db.pause();}; });
 			put(3, new Command() { public void runCommand() { db.execute("D3"); db.pause();}; });
-			put(4, new Command() { public void runCommand() { db.execute("D4"); db.pause();}; });
-			put(5, new Command() { public void runCommand() { db.execute("D5"); db.pause();}; });
-			put(6, new Command() { public void runCommand() { db.execute("D6"); db.pause();}; });
+			put(4, new Command() { public void runCommand() { db.execute("D4", br); db.pause();}; });
+			put(5, new Command() { public void runCommand() { db.execute("D5", br); db.pause();}; });
+			put(6, new Command() { public void runCommand() { db.execute("D6", br); db.pause();}; });
 			put(7, new Command() { public void runCommand() { db.execute("D7"); db.pause();}; });
 		}
 	};

@@ -90,6 +90,16 @@ public class Database implements Queries {
 	public void populateUpdateCommands() {
 		uc.put("B3", new B3(con));
 		uc.put("B4", new B4(con));
+		uc.put("B6", new B6(con));
+		uc.put("B7", new B7(con));
+		uc.put("B8", new B8(con));
+		uc.put("C8", new C8(con));
+		uc.put("D4", new D4(con));
+		uc.put("D5", new D5(con));
+		uc.put("D6", new D6(con));
+		uc.put("U1", new U1(con));
+      		uc.put("U2", new U2(con));
+      		uc.put("U3", new U3(con));
 	}
 
 	public void connect() {
@@ -155,7 +165,7 @@ public class Database implements Queries {
 		ResultSet rs = null;
 		ResultSetMetaData rsmd = null;
 		StringBuilder table = new StringBuilder();
-		System.out.println(uc.get(str).getStatement());
+
 		try {
 			if (uc.containsKey(str)) {
 				pst = uc.get(str).prepareStatement();
@@ -258,13 +268,18 @@ public class Database implements Queries {
       		if (type == 1)
          		execute("B2");
       		else if (type == 2)
-        		execute("B5");
+        		   execute("B5");
       		else if (type == 3)
          		execute("U4");
          
 		try {
-			if (tables.containsKey(str)) {
-				pst = con.prepareStatement(tables.get(str));
+			if (uc.containsKey(str)) {
+				pst = uc.get(str).prepareStatement();
+            try {
+               uc.get(str).getPreparedStatement(br,pst);
+            } catch(IOException e){
+               e.printStackTrace();
+            }
 				pst.executeUpdate();
 			} else {
 				System.out.println("Query failed");
@@ -272,7 +287,8 @@ public class Database implements Queries {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-   }
+	 }
+		
    
    	public void pause(){
       		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));

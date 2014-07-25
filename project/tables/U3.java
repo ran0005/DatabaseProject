@@ -6,16 +6,21 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class D6 extends UpdateTable {
+public class U3 extends UpdateTable {
 	private Connection con;
-	
-	public D6(Connection con) {
+	private static int pID;
+   
+	public U3(Connection con) {
 		this.con = con;
 	}
-	
+   
+   public int getPID(){
+      return pID;
+   }
+   
 	public PreparedStatement prepareStatement() {
 		try {
-			return con.prepareStatement(qD6);
+			return con.prepareStatement(qU3);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -24,14 +29,20 @@ public class D6 extends UpdateTable {
 
 	@Override
 	public String getStatement() {
-		return qD6;
+		return qU3;
 	}
 	
 	public void getPreparedStatement(BufferedReader br, PreparedStatement pst) throws IOException, NumberFormatException, SQLException {
 		String temp = "";
 		
-		System.out.print("Please enter the doctor's employee ID: ");
+		System.out.println("Please enter Diagnosis ID: ");
 		temp = br.readLine();
 		pst.setInt(1, Integer.parseInt(temp));
+      
+      System.out.println("Please enter patient ID to checkout: ");
+      temp = br.readLine();
+		pst.setInt(2, Integer.parseInt(temp));
 	}	
+   
+   
 }

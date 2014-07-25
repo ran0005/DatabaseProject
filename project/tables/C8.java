@@ -6,16 +6,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class D6 extends UpdateTable {
+public class C8 extends UpdateTable {
 	private Connection con;
 	
-	public D6(Connection con) {
+	public C8(Connection con) {
 		this.con = con;
 	}
 	
 	public PreparedStatement prepareStatement() {
 		try {
-			return con.prepareStatement(qD6);
+			return con.prepareStatement(qC8);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -24,14 +24,14 @@ public class D6 extends UpdateTable {
 
 	@Override
 	public String getStatement() {
-		return qD6;
+		return qC8;
 	}
 	
 	public void getPreparedStatement(BufferedReader br, PreparedStatement pst) throws IOException, NumberFormatException, SQLException {
 		String temp = "";
 		
-		System.out.print("Please enter the doctor's employee ID: ");
+		System.out.print("Please enter the order ID: ");
 		temp = br.readLine();
-		pst.setInt(1, Integer.parseInt(temp));
+		pst.setString(1, temp);
 	}	
 }
