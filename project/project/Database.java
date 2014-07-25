@@ -15,6 +15,10 @@ import tables.Administers;
 import tables.Admit;
 import tables.AssignDoc;
 import tables.B3;
+import tables.B4;
+import tables.B6;
+import tables.B7;
+import tables.B8;
 import tables.Diagnosis;
 import tables.Employee;
 import tables.Orders;
@@ -99,7 +103,8 @@ public class Database implements Queries {
 	private static HashMap<String, UpdateTable> uc = new HashMap<String, UpdateTable>();
 	
 	public void populateUpdateCommands() {
-		uc.put("B3", new B3(qB3, con));
+		uc.put("B3", new B3(con));
+		uc.put("B4", new B4(con));
 	}
 
 	public void connect() {
