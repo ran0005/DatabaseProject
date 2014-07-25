@@ -31,7 +31,7 @@ public interface Queries {
 	String administersinsert = "insert into administers values" + "(?,?,?,?,?,?)";
 
 	///A
-	String A1 = "select roomNum, pLastName || ', ' || pFirstName || ' ' || pMInit as Name, startTime "
+	String qA1 = "select roomNum, pLastName || ', ' || pFirstName || ' ' || pMInit as Name, startTime "
 			+ "from patient join "
 			+ "( "
 			+ "	select roomNum, patID, startTime "
@@ -45,11 +45,11 @@ public interface Queries {
 			+ ") as a2 using (patID) "
 			+ "order by roomNum;";
 			
-	String A2 = "select roomNum "
+	String qA2 = "select roomNum "
 			+ "from Room "
 			+ "where patID IS NULL;";
 			
-	String A3 = "select roomNum, pLastName || ', ' || pFirstName || ' ' || pMInit as Name, startTime "
+	String qA3 = "select roomNum, pLastName || ', ' || pFirstName || ' ' || pMInit as Name, startTime "
 			+ "from room left join "
 			+ "( "
 			+ "	select patID, pFirstName, pMInit, pLastName, startTime "
@@ -62,47 +62,47 @@ public interface Queries {
 			+ ") as p2 using (patID);";
 	
 	//B
-	String B1 = "select distinct patID, pLastName || ', ' || pFirstName || ' ' || pMInit as Name, "
+	String qB1 = "select distinct patID, pLastName || ', ' || pFirstName || ' ' || pMInit as Name, "
 			+ "emergContact, insurance from Patient "
 			+ "order by patID;";
 	
-	String B2 = "select distinct patID, pLastName || ', ' || pFirstName || ' ' || pMInit as Name "
+	String qB2 = "select distinct patID, pLastName || ', ' || pFirstName || ' ' || pMInit as Name "
 			+ "from Patient join Admit using (patID) "
 			+ "where patType = 'in' and endTime is null;";
 	
-	String B3 = "select distinct patID, pLastName || ', ' || pFirstName || ' ' || pMInit as Name "
+	String qB3 = "select distinct patID, pLastName || ', ' || pFirstName || ' ' || pMInit as Name "
 			+ "from patient join Admit using (patID) "
 			+ "where startTime::date >= ?::date and startTime::date <= ?::date "
 			+ "and patType ='in' "
 			+ "order by patID;";
 	
-	String B4 = "select distinct patID, pLastName || ', ' || pFirstName || ' ' || pMInit as Name"
+	String qB4 = "select distinct patID, pLastName || ', ' || pFirstName || ' ' || pMInit as Name"
 			+ "from patient join Admit using (patID) "
 			+ "where endTime::date >= ?::date and endTime::date <= ?::date "
 			+ "order by patID;";
 	
-	String B5 = "select patid, plastname||','||pfirstname||' '||pminit as name from patient "
+	String qB5 = "select patid, plastname||','||pfirstname||' '||pminit as name from patient "
 				+ "join admit using (patid) "
 				+ "where pattype = 'out' and endtime is null;";
 	
-	String B6 = "select patid, plastname||','||pfirstname||' '||pminit as name from patient "
+	String qB6 = "select patid, plastname||','||pfirstname||' '||pminit as name from patient "
 				+ "join admit using (patid) "
 				+ "where pattype = 'out' and startTime::date between ? and ?;";
 	
-	String B7 = "select patid, starttime, endtime, dname "
+	String qB7 = "select patid, starttime, endtime, dname "
 				+ "from patient "
 				+ "join admit using (patid) "
 				+ "join diagnosis using (diagid) "
 				+ "where patID = ?;";
 	
-	String B8 = "select plastname||','||pfirstname||' '||pminit as name, tname, starttime, orderTime from patient "
+	String qB8 = "select plastname||','||pfirstname||' '||pminit as name, tname, starttime, orderTime from patient "
 				+ "join admit using (patid) "
 				+ "join orders using (patid) "
 				+ "join treatment using (treatid) "
-				+ "where patID = 8 "
+				+ "where patID = ? "
 				+ "order by starttime desc, orderTime asc;";
 	
-	String B9 = "select Admit.patID, pLastName || ', ' || pFirstName ||' '|| pMInit as pName, dName, "
+	String qB9 = "select Admit.patID, pLastName || ', ' || pFirstName ||' '|| pMInit as pName, dName, "
 			+ "eLastName || ', ' || eFirstName ||' '|| eMInit as eName "
 			+ "from Admit join Patient using (patID) "
 				+ "join Employee on Employee.empID = Admit.admitDocID "
@@ -129,7 +129,7 @@ public interface Queries {
 			+ "where time < 30; ";
 	
 	//timeBetween is from VisitIntervals
-	String B10 = "select patID, pLastName || ', ' || pFirstName || ' ' || pMInit as pName, "
+	String qB10 = "select patID, pLastName || ', ' || pFirstName || ' ' || pMInit as pName, "
 			+ "totalVisits, avgDuration, min(timeBetween), avg(timeBetween), max(timeBetween) "
 		+ "from "
 		+ "( "
@@ -152,29 +152,29 @@ public interface Queries {
 		+ "group by patID, totalVisits, avgDuration, pLastName, pFirstName, pMInit "
 		+ "order by patID;";
 	//C
-	String C1 = "select Diagnosis.diagID, dName, occurences from Diagnosis join "
+	String qC1 = "select Diagnosis.diagID, dName, occurences from Diagnosis join "
 		+ "( select diagID, count(*) as occurences from Admit where patType = 'in' "
 		+ "group by diagID )as r using (diagID) order by occurences desc";
 	
-	String C2 = "select Diagnosis.diagID, dName, occurences from Diagnosis join "
+	String qC2 = "select Diagnosis.diagID, dName, occurences from Diagnosis join "
 		+ "( select diagID, count(*) as occurences from Admit where patType = 'out'"
 		+ " group by diagID ) as r using (diagID) order by occurences desc";
 	
-	String C3 = "select Diagnosis.diagID, dName, occurences from Diagnosis join "
+	String qC3 = "select Diagnosis.diagID, dName, occurences from Diagnosis join "
 		+ "( select diagID, count(*) as occurences from Admit group by diagID "
 		+ ") as r using (diagID) order by occurences desc";
 		
-	String C4 = "select Treatment.treatID, tName, occurrences from Treatment join "
+	String qC4 = "select Treatment.treatID, tName, occurrences from Treatment join "
 		+ "( select treatID, count(*) as occurrences from Orders group by treatID "
 		+ ") as r using (treatID) order by occurrences desc";
 		
-	String C5 = "select Treatment.treatID, tName, occurences from Treatment join "
+	String qC5 = "select Treatment.treatID, tName, occurences from Treatment join "
 		+ "( select treatID, count(*) as occurences from ( select distinct patID from Admit "
 		+ "where patType = 'in'	) as r join ( select patID, treatID from Orders "
 		+ ") as r1 using (patID) group by treatID ) as r3 using (treatID) "
 		+ "order by occurences desc;";
 	
-	String C6 = "select treatID, tname, count(tname) "
+	String qC6 = "select treatID, tname, count(tname) "
 		+ "	from orders join (select patID, startTime, endTime "
 		+ "		from admit "
 		+ "		where pattype = 'out') outpatients using (patID) "
@@ -184,7 +184,7 @@ public interface Queries {
 		+ "	group by treatID, tname "
 		+ "	order by count(tname) desc;";
 				
-	String C7 = "select dName, count(dName) "
+	String qC7 = "select dName, count(dName) "
 		+ "from diagnosis join "
 		+ "( "
 		+ "	select patID, diagID "
@@ -203,7 +203,7 @@ public interface Queries {
 		+ "group by dName "
 		+ "order by count(dName);";
 		
-	String C8 = "select docName, patName, "
+	String qC8 = "select docName, patName, "
 		+ "eLastName || ', ' || eFirstName || ' ' || eMInit as empName "
 		+ "from employee join "
 		+ "( "
@@ -225,7 +225,7 @@ public interface Queries {
 		+ "	) as p1 on (docID = empID) "
 		+ ") as e2 on (adminID = empID);";
 	//D
-	String D1 = "select * "
+	String qD1 = "select * "
 				+ "from (select empID as ID, eLastName || ', ' || eFirstName || ' ' || eMInit as EmpName, eType as Type, eHiredate as DateOfHire "
 				+ "from Employee "
 				+ "union "
@@ -233,12 +233,12 @@ public interface Queries {
 				+ "from Volunteer) workers "
 				+ "order by EmpName;";
 	
-	String D2 = "select volID, vLastName || ', ' || vFirstName || ' ' || vMInit as Name "
+	String qD2 = "select volID, vLastName || ', ' || vFirstName || ' ' || vMInit as Name "
 				+ "from Volunteer join VolProvide using (volID) "
 				+ "where servType = 'Info desk' "
 				+ "and dayOfWeek = 'Tue';";
 	
-	String D3 = "select distinct eLastName || ', ' || eFirstName || ' ' || eMInit as docName,  "
+	String qD3 = "select distinct eLastName || ', ' || eFirstName || ' ' || eMInit as docName,  "
 				+ "	pLastName || ', ' || pFirstName || ' ' || pMInit as patName, myYear "
 				+ "from Employee join Admit on (Employee.empID = Admit.admitDocID) join (select patID, extract(year from startTime::date) myYear "
 				+ "from Admit "
@@ -246,7 +246,7 @@ public interface Queries {
 				+ "having count(extract(year from startTime::date)) >= 4) freqPatient using (patID) join Patient using (patID) "
 				+ "where freqPatient.myYear = extract(year from Admit.startTime::date);";
 	
-	String D4 = "select eLastName || ', ' || eFirstName || ' ' || eMInit as Name, dName, diagCount "
+	String qD4 = "select eLastName || ', ' || eFirstName || ' ' || eMInit as Name, dName, diagCount "
 				+ "from Employee join (select admitDocID, diagID, count(diagID) diagCount "
 				+ "from Admit "
 				+ "where admitDocID = ? "
@@ -254,7 +254,7 @@ public interface Queries {
 				+ "	join Diagnosis using (diagID) "
 				+ "order by diagCount desc;";
 	
-	String D5 = "select eLastName || ', ' || eFirstName || ' ' || eMInit as Name, tName, treatCount "
+	String qD5 = "select eLastName || ', ' || eFirstName || ' ' || eMInit as Name, tName, treatCount "
 				+ "from Employee join (select empID, treatID, count(treatID) treatCount "
 				+ "from Orders "
 				+ "where empID = ? "
@@ -262,7 +262,7 @@ public interface Queries {
 				+ "	join Treatment using (treatID) "
 				+ "order by treatCount desc;";
 	
-	String D6 = "select eLastName || ', ' || eFirstName || ' ' || eMInit as Name, tName, treatCount "
+	String qD6 = "select eLastName || ', ' || eFirstName || ' ' || eMInit as Name, tName, treatCount "
 				+ "from Employee join (select empAdministerID, treatID, count(treatID) treatCount "
 				+ "from Administers "
 				+ "where empAdministerID = ? "
@@ -270,7 +270,7 @@ public interface Queries {
 				+ "	join Treatment using (treatID) "
 				+ "order by treatCount desc;";
 	
-	String D7 = "select empID, eLastName || ', ' || eFirstName || ' ' || eMInit as Name "
+	String qD7 = "select empID, eLastName || ', ' || eFirstName || ' ' || eMInit as Name "
 				+ "from (select empID "
 				+ "from Employee "
 				+ "except "

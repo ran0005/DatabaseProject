@@ -105,7 +105,7 @@ public class Menu implements ViewMenuOptions, InsertMenuOptions {
 		{
 			put(1, new Command() { public void runCommand() { db.execute("B1"); }; });
 			put(2, new Command() { public void runCommand() { db.execute("B2"); }; });
-			put(3, new Command() { public void runCommand() { db.execute("B3"); }; });
+			put(3, new Command() { public void runCommand() { db.execute("B3", br); }; });
 			put(4, new Command() { public void runCommand() { db.execute("B4"); }; });
 			put(5, new Command() { public void runCommand() { db.execute("B5"); }; });
 			put(6, new Command() { public void runCommand() { menu(viewMorePatientMenu, viewMorePatientHashMap); }; });
