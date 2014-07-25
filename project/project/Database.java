@@ -144,6 +144,20 @@ public class Database implements Queries {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		try
+      		{
+         		String tmp = null;
+		        while(true)
+	         	{
+            			System.out.print("Press enter to continue... ");
+			        tmp = br.readLine().trim();
+			        if (tmp != null)
+			        	break;
+        		}
+      		} catch (IOException e) {
+	      		e.printStackTrace();
+		}
 	}
 
 	public void add(String str, BufferedReader br) {
@@ -168,6 +182,19 @@ public class Database implements Queries {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		try{
+         		String tmp = null;
+		        while(true)
+	         	{
+            			System.out.print("Press enter to continue... ");
+			        tmp = br.readLine().trim();
+			        if (tmp != null)
+			        	break;
+        		}
+      		} catch (IOException e) {
+	      		e.printStackTrace();
+		}
 	}
 
 	public void add(String str, String comment, BufferedReader br) {
@@ -191,6 +218,20 @@ public class Database implements Queries {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}
+		
+		try
+      		{
+         		String tmp = null;
+		        while(true)
+	         	{
+            			System.out.print("Press enter to continue... ");
+			        tmp = br.readLine().trim();
+			        if (tmp != null)
+			        	break;
+        		}
+      		} catch (IOException e) {
+	      		e.printStackTrace();
 		}
 	}
 	
