@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import org.postgresql.util.PSQLException;
+
 public class D5 extends UpdateTable {
 	private Connection con;
 	
@@ -27,11 +29,20 @@ public class D5 extends UpdateTable {
 		return qD5;
 	}
 	
-	public void getPreparedStatement(BufferedReader br, PreparedStatement pst) throws IOException, NumberFormatException, SQLException {
+	public void getPreparedStatement(BufferedReader br, PreparedStatement pst) throws IOException, SQLException {
 		String temp = "";
-		
+		try {
 		System.out.print("Please enter the doctor's employee ID: ");
 		temp = br.readLine();
 		pst.setInt(1, Integer.parseInt(temp));
+		}
+		catch (NumberFormatException err)
+		{
+			System.out.println("Invalid Input");
+		}
+		catch (PSQLException e)
+		{
+			System.out.println("Invalid Input");
+		}
 	}	
 }
