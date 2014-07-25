@@ -11,7 +11,7 @@ interface Command {
 	void runCommand();
 }
 
-public class Menu implements ViewMenuOptions, InsertMenuOptions {
+public class Menu implements ViewMenuOptions, InsertMenuOptions, UpdateMenuOptions {
 
 	private Database db;
 	private BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -52,30 +52,31 @@ public class Menu implements ViewMenuOptions, InsertMenuOptions {
 			put(5, new Command() { public void runCommand() { menu(viewWorkerMenu, viewWorkerHashMap); }; });
 		}
 	};
+   
 
 	// These are the HashMaps for view menus because reasons!
 	public final HashMap<Integer, Command> viewMoreTablesHashMap = new HashMap<Integer, Command>()
 	{
 		{
-			put(1, new Command() { public void runCommand() { db.execute("room"); }; });
-			put(2, new Command() { public void runCommand() { db.execute("admit"); }; });
-			put(3, new Command() { public void runCommand() { db.execute("volProvide"); }; });
-			put(4, new Command() { public void runCommand() { db.execute("staffProvide"); }; });
-			put(5, new Command() { public void runCommand() { db.execute("assignDoc"); }; });
-			put(6, new Command() { public void runCommand() { db.execute("orders"); }; });
-			put(7, new Command() { public void runCommand() { db.execute("administers"); }; });
+			put(1, new Command() { public void runCommand() { db.execute("room"); db.pause();}; });
+			put(2, new Command() { public void runCommand() { db.execute("admit"); db.pause(); }; });
+			put(3, new Command() { public void runCommand() { db.execute("volProvide"); db.pause();}; });
+			put(4, new Command() { public void runCommand() { db.execute("staffProvide"); db.pause();}; });
+			put(5, new Command() { public void runCommand() { db.execute("assignDoc"); db.pause();}; });
+			put(6, new Command() { public void runCommand() { db.execute("orders"); db.pause();}; });
+			put(7, new Command() { public void runCommand() { db.execute("administers"); db.pause();}; });
 		}
 	};
 
 	public final HashMap<Integer, Command> viewTableHashMap = new HashMap<Integer, Command>()
 	{
 		{
-			put(1, new Command() { public void runCommand() { db.execute("employee"); }; });
-			put(2, new Command() { public void runCommand() { db.execute("volunteer"); }; });
-			put(3, new Command() { public void runCommand() { db.execute("services"); }; });
-			put(4, new Command() { public void runCommand() { db.execute("treatment"); }; });
-			put(5, new Command() { public void runCommand() { db.execute("patient"); }; });
-			put(6, new Command() { public void runCommand() { db.execute("diagnosis"); }; });
+			put(1, new Command() { public void runCommand() { db.execute("employee"); db.pause();}; });
+			put(2, new Command() { public void runCommand() { db.execute("volunteer"); db.pause();}; });
+			put(3, new Command() { public void runCommand() { db.execute("services"); db.pause();}; });
+			put(4, new Command() { public void runCommand() { db.execute("treatment"); db.pause();}; });
+			put(5, new Command() { public void runCommand() { db.execute("patient"); db.pause();}; });
+			put(6, new Command() { public void runCommand() { db.execute("diagnosis"); db.pause();}; });
 			put(7, new Command() { public void runCommand() { menu(viewMoreTablesMenu, viewMoreTablesHashMap); }; });
 		}
 	};
@@ -83,59 +84,59 @@ public class Menu implements ViewMenuOptions, InsertMenuOptions {
 	public final HashMap<Integer, Command> viewRoomHashMap = new HashMap<Integer, Command>()
 	{
 		{
-			put(1, new Command() { public void runCommand() { db.execute("A1"); }; });
-			put(2, new Command() { public void runCommand() { db.execute("A2"); }; });
-			put(3, new Command() { public void runCommand() { db.execute("A3"); }; });
+			put(1, new Command() { public void runCommand() { db.execute("A1"); db.pause();}; });
+			put(2, new Command() { public void runCommand() { db.execute("A2"); db.pause();}; });
+			put(3, new Command() { public void runCommand() { db.execute("A3"); db.pause();}; });
 		}
 	};
 
 	public final HashMap<Integer, Command> viewMorePatientHashMap = new HashMap<Integer, Command>()
 	{
 		{
-			put(1, new Command() { public void runCommand() { db.execute("B6"); }; });
-			put(2, new Command() { public void runCommand() { db.execute("B7"); }; });
-			put(3, new Command() { public void runCommand() { db.execute("B8"); }; });
-			put(4, new Command() { public void runCommand() { db.execute("B9"); }; });
-			put(5, new Command() { public void runCommand() { db.execute("B10"); }; });
+			put(1, new Command() { public void runCommand() { db.execute("B6"); db.pause();}; });
+			put(2, new Command() { public void runCommand() { db.execute("B7"); db.pause();}; });
+			put(3, new Command() { public void runCommand() { db.execute("B8"); db.pause();}; });
+			put(4, new Command() { public void runCommand() { db.execute("B9"); db.pause();}; });
+			put(5, new Command() { public void runCommand() { db.execute("B10"); db.pause();}; });
 		}
 	};
 
 	public final HashMap<Integer, Command> viewPatientHashMap = new HashMap<Integer, Command>()
 	{
 		{
-			put(1, new Command() { public void runCommand() { db.execute("B1"); }; });
-			put(2, new Command() { public void runCommand() { db.execute("B2"); }; });
-			put(3, new Command() { public void runCommand() { db.execute("B3", br); }; });
-			put(4, new Command() { public void runCommand() { db.execute("B4"); }; });
-			put(5, new Command() { public void runCommand() { db.execute("B5"); }; });
-			put(6, new Command() { public void runCommand() { menu(viewMorePatientMenu, viewMorePatientHashMap); }; });
+			put(1, new Command() { public void runCommand() { db.execute("B1"); db.pause();}; });
+			put(2, new Command() { public void runCommand() { db.execute("B2"); db.pause();}; });
+			put(3, new Command() { public void runCommand() { db.execute("B3"); db.pause();}; });
+			put(4, new Command() { public void runCommand() { db.execute("B4"); db.pause();}; });
+			put(5, new Command() { public void runCommand() { db.execute("B5"); db.pause();}; });
+			put(6, new Command() { public void runCommand() { menu(viewMorePatientMenu, viewMorePatientHashMap);}; });
 		}
 	};
 
 	public final HashMap<Integer, Command> viewTreatDiagHashMap = new HashMap<Integer, Command>()
 	{
 		{
-			put(1, new Command() { public void runCommand() { db.execute("C1"); }; });
-			put(2, new Command() { public void runCommand() { db.execute("C2"); }; });
-			put(3, new Command() { public void runCommand() { db.execute("C3"); }; });
-			put(4, new Command() { public void runCommand() { db.execute("C4"); }; });
-			put(5, new Command() { public void runCommand() { db.execute("C5"); }; });
-			put(6, new Command() { public void runCommand() { db.execute("C6"); }; });
-			put(7, new Command() { public void runCommand() { db.execute("C7"); }; });
-			put(8, new Command() { public void runCommand() { db.execute("C8"); }; });
+			put(1, new Command() { public void runCommand() { db.execute("C1"); db.pause();}; });
+			put(2, new Command() { public void runCommand() { db.execute("C2"); db.pause();}; });
+			put(3, new Command() { public void runCommand() { db.execute("C3"); db.pause();}; });
+			put(4, new Command() { public void runCommand() { db.execute("C4"); db.pause();}; });
+			put(5, new Command() { public void runCommand() { db.execute("C5"); db.pause();}; });
+			put(6, new Command() { public void runCommand() { db.execute("C6"); db.pause();}; });
+			put(7, new Command() { public void runCommand() { db.execute("C7"); db.pause();}; });
+			put(8, new Command() { public void runCommand() { db.execute("C8"); db.pause();}; });
 		}	
 	};
 
 	public final HashMap<Integer, Command> viewWorkerHashMap = new HashMap<Integer, Command>()
 	{
 		{
-			put(1, new Command() { public void runCommand() { db.execute("D1"); }; });
-			put(2, new Command() { public void runCommand() { db.execute("D2"); }; });
-			put(3, new Command() { public void runCommand() { db.execute("D3"); }; });
-			put(4, new Command() { public void runCommand() { db.execute("D4"); }; });
-			put(5, new Command() { public void runCommand() { db.execute("D5"); }; });
-			put(6, new Command() { public void runCommand() { db.execute("D6"); }; });
-			put(7, new Command() { public void runCommand() { db.execute("D7"); }; });
+			put(1, new Command() { public void runCommand() { db.execute("D1"); db.pause();}; });
+			put(2, new Command() { public void runCommand() { db.execute("D2"); db.pause();}; });
+			put(3, new Command() { public void runCommand() { db.execute("D3"); db.pause();}; });
+			put(4, new Command() { public void runCommand() { db.execute("D4"); db.pause();}; });
+			put(5, new Command() { public void runCommand() { db.execute("D5"); db.pause();}; });
+			put(6, new Command() { public void runCommand() { db.execute("D6"); db.pause();}; });
+			put(7, new Command() { public void runCommand() { db.execute("D7"); db.pause();}; });
 		}
 	};
 
@@ -143,41 +144,51 @@ public class Menu implements ViewMenuOptions, InsertMenuOptions {
 	public final HashMap<Integer,Command> insertPatientHashMap = new HashMap<Integer,Command>()
 	{
 		{
-			put(1,new Command() { public void runCommand() { db.add("patient insert", br); }; });
+			put(1,new Command() { public void runCommand() { db.add("patient insert", br); db.pause();}; });
 		}
 	};
 
 	public final HashMap<Integer,Command> insertWorkerHashMap = new HashMap<Integer,Command>()
 	{
 		{
-			put(1, new Command() { public void runCommand() { db.add("employee insert", br); }; });
-			put(2, new Command() { public void runCommand() { db.add("volunteer insert", br); }; });
+			put(1, new Command() { public void runCommand() { db.add("employee insert", br); db.pause();}; });
+			put(2, new Command() { public void runCommand() { db.add("volunteer insert", br); db.pause();}; });
 		}							
 	};
 
 	public final HashMap<Integer,Command> patientOptionsHashMap = new HashMap<Integer,Command>()
 	{
 		{
-			put(1, new Command() { public void runCommand() { db.add("admit insert","\n______Admitting Patient______" , br); }; });
-			put(2, new Command() { public void runCommand() { db.add("assignDoc insert","\n______Adding Secondary Doctor______", br); }; });
-			put(3, new Command() { public void runCommand() { db.add("orders insert","\n______Order Treatment______", br); }; });
-			put(4, new Command() { public void runCommand() { db.add("administer insert","\n______Administer Treatment______", br); }; });
-			//put(5, System.out.println("\n______Update Patient Diagnosis______"); /*TODO add update to admit*/ });
-			//put(6, System.out.println("\n______Checkout Patient______"); /*TODO add update to admit*/ });
+			put(1, new Command() { public void runCommand() { db.add("admit insert","\n______Admitting Patient______" , br); db.pause();}; });
+			put(2, new Command() { public void runCommand() { db.add("assignDoc insert","\n______Adding Secondary Doctor______", br); db.pause();}; });
+			put(3, new Command() { public void runCommand() { db.add("orders insert","\n______Order Treatment______", br); db.pause();}; });
+			put(4, new Command() { public void runCommand() { db.add("administer insert","\n______Administer Treatment______", br); db.pause();}; });
+			put(5, new Command() { public void runCommand() { db.update("U3",3, br); db.pause();}; });
+			put(6, new Command() { public void runCommand() { updateMenu(updateCheckoutMenu, updateCheckoutHashMap); }; });
 		}						
 	};
 
 	public final HashMap<Integer,Command> hospitalOptionsHashMap = new HashMap<Integer,Command>()
 	{
 		{
-			put(1,  new Command() { public void runCommand() { db.add("diagnosis insert","\n______Add Diagnosis______", br); }; });
+			put(1,  new Command() { public void runCommand() { db.add("diagnosis insert","\n______Add Diagnosis______", br); db.pause();db.pause(); }; });
 			put(2,  new Command() { public void runCommand() { db.add("treatment insert","\n______Add Treatment______", br); }; });
-			put(3,  new Command() { public void runCommand() { db.add("room insert","\n______Add Room______", br); }; });
-			put(4,  new Command() { public void runCommand() { db.add("services insert","\n______Add Service______", br); }; });
-			put(5,  new Command() { public void runCommand() { db.add("staffprovide insert","\n______Assign Staff______", br); }; });
-			put(6,  new Command() { public void runCommand() { db.add("volprovide insert","\n______Schedule Volunteer______", br); }; });		
+			put(3,  new Command() { public void runCommand() { db.add("room insert","\n______Add Room______", br); db.pause();}; });
+			put(4,  new Command() { public void runCommand() { db.add("services insert","\n______Add Service______", br); db.pause();}; });
+			put(5,  new Command() { public void runCommand() { db.add("staffprovide insert","\n______Assign Staff______", br); db.pause();}; });
+			put(6,  new Command() { public void runCommand() { db.add("volprovide insert","\n______Schedule Volunteer______", br); db.pause();}; });		
 		}
 	};
+   
+   
+   public final HashMap<Integer,Command> updateCheckoutHashMap = new HashMap<Integer,Command>()
+	{
+		{
+			put(1,  new Command() { public void runCommand() { db.update("U1",1, br); db.update("U2",0, br); db.pause();}; });
+			put(2,  new Command() { public void runCommand() { db.update("U1",2, br); db.pause();}; });
+		}
+	};
+   
 
 	public Menu(Database db) {
 		this.db = db;
@@ -185,6 +196,24 @@ public class Menu implements ViewMenuOptions, InsertMenuOptions {
 	}
 
 	public void menu(String message, HashMap<Integer,Command> hm) {
+		while (true) {
+			try {
+				System.out.print(message);
+				int command = Integer.parseInt(br.readLine());
+				if (command < hm.size() + 1) {
+					hm.get(command).runCommand();
+				} else if (command == hm.size() + 1) {
+					break;
+				} else {
+					System.out.println("Invalid command received");
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+   
+   public void updateMenu(String message, HashMap<Integer,Command> hm) {
 		while (true) {
 			try {
 				System.out.print(message);

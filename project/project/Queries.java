@@ -29,6 +29,17 @@ public interface Queries {
 	String assignDocinsert = "insert into assigndoc values" + "(?,?,?,?)";
 	String ordersinsert = "insert into orders values" + "(?,?,?,?)";
 	String administersinsert = "insert into administers values" + "(?,?,?,?,?,?)";
+	
+	// update strings
+	String qU1 = "update Admit set dischargeAdminID = ?, endTime  = ? where patID = ? and endTime is null;";
+  
+  	String qU2 = "update Room set patID = null, empID = null where patID = ?;";
+  
+  	String qU3 = "update Admit set diagID = ? where patID = ? and endTime is null;";
+  
+  	String qU4 = "select patid, diagID, plastname||','||pfirstname||' '||pminit as name from patient "
+				+ "join admit using (patid) "
+				+ "where endtime is null;";
 
 	///A
 	String qA1 = "select roomNum, pLastName || ', ' || pFirstName || ' ' || pMInit as Name, startTime "
@@ -280,4 +291,5 @@ public interface Queries {
 				+ "	except "
 				+ "	select * from EmployeePatientInteraction) NoInteraction) AllInteraction "
 				+ "join Employee using (empID);";
+
 }
