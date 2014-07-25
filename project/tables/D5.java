@@ -32,6 +32,6 @@ public class D5 extends UpdateTable {
 		
 		System.out.print("Please enter the doctor's employee ID: ");
 		temp = br.readLine();
-		pst.setString(1, temp);
+		pst.setInt(1, Integer.parseInt(temp));
 	}	
 }
