@@ -5,31 +5,43 @@ import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import project.Constraint;
+
 public class Administers extends Table {
-	
+
 	@Override
 	public String getStatement() {
 		return administersinsert;
 	}
 
 	@Override
-	public void getPreparedStatement(BufferedReader br, PreparedStatement pst) throws IOException, NumberFormatException, SQLException {
+	public void getPreparedStatement(BufferedReader br, PreparedStatement pst)
+			throws IOException, NumberFormatException, SQLException {
 		String temp = "";
-      
-		System.out.print("Input value for " + "OrderID" + ": " );
-		temp = br.readLine();
-      
-      pst.setInt(1, Integer.parseInt(temp));
-      		
-		System.out.print("Input value for " + "empAdministerID" + ": " );
+
+		System.out.print("Input value for " + "OrderID" + ": ");
 		temp = br.readLine();
 		
-		pst.setInt(2, Integer.parseInt(temp));
-		
-		System.out.print("Input value for " + "adminTime" + ": " );
+		if(!Constraint.integerConstraintMatch(pst, 1, temp)) {
+			return;
+		}
+
+		System.out.print("Input value for " + "empAdministerID" + ": ");
 		temp = br.readLine();
+
+		if(!Constraint.integerConstraintMatch(pst, 2, temp)) {
+			return;
+		}
 		
-		pst.setString(3, temp);
+		if (!Constraint.checkEmpIDMatchesNeitherStaffOrAdmin(Integer.parseInt(temp))) {
+			return;
+		}
+
+		System.out.print("Input value for " + "adminTime" + ": ");
+		temp = br.readLine();
+
+		if(!Constraint.integerConstraintMatch(pst, 3, temp)) {
+			return;
+		}
 	}
 }
-

@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import project.Constraint;
+
 public class Patient extends Table {
 
 	@Override
@@ -20,7 +22,9 @@ public class Patient extends Table {
 		System.out.print("Input value for " + "patID" + ": ");
 		temp = br.readLine();
 
-		pst.setInt(1, Integer.parseInt(temp));
+		if (!Constraint.integerConstraintMatch(pst, 1, temp)) {
+			return;
+		}
 
 		System.out.print("Input value for " + "pFirstName" + ": ");
 		temp = br.readLine();
@@ -30,7 +34,9 @@ public class Patient extends Table {
 		System.out.print("Input value for " + "pMInit" + ": ");
 		temp = br.readLine();
 
-		pst.setString(3, temp);
+		if (!Constraint.characterConstraintMatch(pst, 3, temp)) {
+			return;
+		}
 
 		System.out.print("Input value for " + "pLastName" + ": ");
 		temp = br.readLine();

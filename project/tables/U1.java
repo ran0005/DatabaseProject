@@ -6,20 +6,20 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import org.postgresql.util.PSQLException;
+import project.Constraint;
 
 public class U1 extends UpdateTable {
 	private Connection con;
 	private static int pID;
-   
+
 	public U1(Connection con) {
 		this.con = con;
 	}
-   
-   public static int getPID(){
-      return pID;
-   }
-   
+
+	public static int getPID() {
+		return pID;
+	}
+
 	public PreparedStatement prepareStatement() {
 		try {
 			return con.prepareStatement(qU1);
@@ -33,30 +33,41 @@ public class U1 extends UpdateTable {
 	public String getStatement() {
 		return qU1;
 	}
-	
-	public void getPreparedStatement(BufferedReader br, PreparedStatement pst) throws IOException, SQLException {
+
+	public void getPreparedStatement(BufferedReader br, PreparedStatement pst)
+			throws IOException, NumberFormatException, SQLException {
+
 		String temp = "";
+
+		System.out.print("Please enter Admin ID: ");
+		temp = br.readLine().trim();
+		int empid = -1;
 		try {
-		System.out.println("Please enter Admin ID: ");
+			Integer.parseInt(temp);
+		} catch (NumberFormatException e) {
+			System.out.println("Only numbers are accepted for this field");
+			return;
+		}
+
+		if (Constraint.checkEmpIDMatchesAdminType(empid) && empid > 0) {
+			pst.setInt(1, empid);
+		} else {
+			System.out.println("Improper employee identification");
+			return;
+		}
+
+		// check against admit? This as far as I can tell is not catered towards setting information for any in patient being checked out,
+		// should ask for patient id right then it can update the info??
+		System.out.print("Please enter the end date (YYYY-MM-DD): ");
 		temp = br.readLine();
-		pst.setInt(1, Integer.parseInt(temp));
-		
-		System.out.println("Please enter the end date (YYYY-MM-DD): ");
+
+		if (Constraint.checkDateFormat(temp)) {
+			pst.setString(2, temp);
+		}
+
+		System.out.print("Please enter patient ID to checkout: ");
 		temp = br.readLine();
-		pst.setString(2, temp);
-      
-      System.out.println("Please enter patient ID to checkout: ");
-      temp = br.readLine();
-      pID = Integer.parseInt(temp);
+		pID = Integer.parseInt(temp);
 		pst.setInt(3, Integer.parseInt(temp));
-		}
-		catch (NumberFormatException err)
-		{
-			System.out.println("Invalid Input");
-		}
-		catch (PSQLException e)
-		{
-			System.out.println("Invalid Input");
-		}
-	}	
+	}
 }

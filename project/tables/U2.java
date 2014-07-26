@@ -33,7 +33,7 @@ public class U2 extends UpdateTable {
 	}
 	
 	public void getPreparedStatement(BufferedReader br, PreparedStatement pst) throws IOException, NumberFormatException, SQLException {
-		
+
 		pst.setInt(1, U1.getPID());
 	}	
 }
