@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import project.Constraint;
+
 public class Employee extends Table {
 
 	@Override
@@ -20,7 +22,9 @@ public class Employee extends Table {
 		System.out.print("Input value for " + "empID" + ": ");
 		temp = br.readLine();
 
-		pst.setInt(1, Integer.parseInt(temp));
+		if (!Constraint.integerConstraintMatch(pst, 1, temp)) {
+			return;
+		}
 
 		System.out.print("Input value for " + "eFirstName" + ": ");
 		temp = br.readLine();
@@ -29,8 +33,10 @@ public class Employee extends Table {
 
 		System.out.print("Input value for " + "eMInit" + ": ");
 		temp = br.readLine();
-
-		pst.setString(3, temp);
+		
+		if (!Constraint.characterConstraintMatch(pst, 3, temp)) {
+			return;
+		}
 
 		System.out.print("Input value for " + "eLastName" + ": ");
 		temp = br.readLine();
@@ -39,7 +45,11 @@ public class Employee extends Table {
 
 		System.out.print("Input value for " + "eHiredate" + ": ");
 		temp = br.readLine();
-
+		
+		if (!Constraint.checkDateFormat(temp)) {
+			return;
+		}
+		
 		pst.setString(5, temp);
 
 		System.out.print("Input value for " + "eType" + ": ");

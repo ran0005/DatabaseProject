@@ -1,20 +1,19 @@
 package project;
 
 import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.HashMap;
 
 import tables.*;
 
 public class Database implements Queries {
-	 static Connection con = null;
+	static Connection con = null;
 
 	private static final HashMap<String, String> tables;
 	static {
@@ -61,9 +60,9 @@ public class Database implements Queries {
 		tables.put("D6", qD6);
 		tables.put("D7", qD7);
 		tables.put("U1", qU1);
-      		tables.put("U2", qU2);
+		tables.put("U2", qU2);
 		tables.put("U3", qU3);
-      		tables.put("U4", qU4);
+		tables.put("U4", qU4);
 	}
 
 	private static final HashMap<String, Table> ic;
@@ -73,7 +72,7 @@ public class Database implements Queries {
 		ic.put("employee insert", new Employee());
 		ic.put("volunteer insert", new Volunteer());
 		ic.put("administer insert", new Administers());
-		ic.put("admitinsert", new Admit());
+		ic.put("admit insert", new Admit());
 		ic.put("assignDoc insert", new AssignDoc());
 		ic.put("services insert", new Services());
 		ic.put("treatment insert", new Treatment());
@@ -84,9 +83,9 @@ public class Database implements Queries {
 		ic.put("staffprovide insert", new StaffProvide());
 		ic.put("orders insert", new Orders());
 	}
-	
+
 	private static HashMap<String, UpdateTable> uc = new HashMap<String, UpdateTable>();
-	
+
 	public void populateUpdateCommands() {
 		uc.put("B3", new B3(con));
 		uc.put("B4", new B4(con));
@@ -98,8 +97,8 @@ public class Database implements Queries {
 		uc.put("D5", new D5(con));
 		uc.put("D6", new D6(con));
 		uc.put("U1", new U1(con));
-      		uc.put("U2", new U2(con));
-      		uc.put("U3", new U3(con));
+		uc.put("U2", new U2(con));
+		uc.put("U3", new U3(con));
 	}
 
 	public void connect() {
@@ -114,127 +113,69 @@ public class Database implements Queries {
 			System.out.println(ex.getMessage());
 		}
 	}
+	
+	public static Connection getConnection() {
+		return con;
+	}
 
 	public void execute(String str) {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
-		ResultSetMetaData rsmd = null;
-		StringBuilder table = new StringBuilder();
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		
+
 		try {
-			if (tables.containsKey(str)) {
-				pst = con.prepareStatement(tables.get(str));
-				pst.execute();
-				rs = pst.getResultSet();
-				rsmd = rs.getMetaData();
-
-				int numOfCol = rsmd.getColumnCount();
-				int colWidth;
-				String colFormats[] = new String[numOfCol];
-
-			    table.append("\n");
-			    
-			    for (int i = 1; i <= numOfCol; i++) {
-			    	colWidth = rsmd.getColumnDisplaySize(i);
-			    	if (colWidth > 40 || colWidth < 1) colWidth = 27;
-			    	colFormats[i - 1] = "%-" + colWidth + "s";
-			    	table.append(String.format(colFormats[i-1], rsmd.getColumnLabel(i)));
-			    }
-			    table.append("\n");
-			    
-				while (rs.next()) {
-					for (int i = 1; i <= numOfCol; ++i) {
-						table.append(String.format(colFormats[i - 1], rs.getString(i)));
-					}
-					table.append("\n");
-				}
-				
-				System.out.println(table.toString());
-			} else {
-				System.out.println("Query failed");
-			}
+			pst = con.prepareStatement(tables.get(str));
+			pst.execute();
+			rs = pst.getResultSet();
+			displayFormattedTable(rs);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Data could not be retrieved");
 		}
-		
 	}
-	
+
 	public void execute(String str, BufferedReader br) {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
-		ResultSetMetaData rsmd = null;
-		StringBuilder table = new StringBuilder();
 
 		try {
-			if (uc.containsKey(str)) {
-				pst = uc.get(str).prepareStatement();
+			pst = uc.get(str).prepareStatement();
 
-				try {
-					uc.get(str).getPreparedStatement(br, pst);
-				} catch (NumberFormatException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				pst.execute();
-				rs = pst.getResultSet();
-				rsmd = rs.getMetaData();
-
-				int numOfCol = rsmd.getColumnCount();
-				int colWidth;
-				String colFormats[] = new String[numOfCol];
-
-			    table.append("\n");
-			    
-			    for (int i = 1; i <= numOfCol; i++) {
-			    	colWidth = rsmd.getColumnDisplaySize(i);
-			    	if (colWidth > 40 || colWidth < 1) colWidth = 27;
-			    	colFormats[i - 1] = "%-" + colWidth + "s";
-			    	table.append(String.format(colFormats[i-1], rsmd.getColumnLabel(i)));
-			    }
-			    table.append("\n");
-			    
-				while (rs.next()) {
-					for (int i = 1; i <= numOfCol; ++i) {
-						table.append(String.format(colFormats[i - 1], rs.getString(i)));
-					}
-					table.append("\n");
-				}
-				
-				System.out.println(table.toString());
-			} else {
-				System.out.println("Query failed");
+			try {
+				uc.get(str).getPreparedStatement(br, pst);
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
+
+			pst.execute();
+			rs = pst.getResultSet();
+			displayFormattedTable(rs);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Data could not be retrieved");
 		}
-		
+
 	}
 
 	public void add(String str, BufferedReader br) {
 		PreparedStatement pst = null;
 
 		try {
-			if (ic.containsKey(str)) {
-				pst = con.prepareStatement(ic.get(str).getStatement());
-				
-				try {
-					ic.get(str).getPreparedStatement(br, pst);
-				} catch (NumberFormatException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				
-				pst.executeUpdate();
-			} else {
-				System.out.println("Query failed");
+
+			pst = con.prepareStatement(ic.get(str).getStatement());
+
+			try {
+				ic.get(str).getPreparedStatement(br, pst);
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
+
+			pst.executeUpdate();
+
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Unable to add information to database");
 		}
-		
 
 	}
 
@@ -242,79 +183,92 @@ public class Database implements Queries {
 		PreparedStatement pst = null;
 
 		try {
-			if (ic.containsKey(str)) {
-				pst = con.prepareStatement(ic.get(str).getStatement());
-				System.out.println(comment);
-				try {
-					ic.get(str).getPreparedStatement(br, pst);
-				} catch (NumberFormatException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				
-				pst.executeUpdate();
-			} else {
-				System.out.println("Query failed");
+
+			pst = con.prepareStatement(ic.get(str).getStatement());
+			System.out.println(comment);
+			try {
+				ic.get(str).getPreparedStatement(br, pst);
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
+
+			pst.executeUpdate();
+
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Unable to add information to database");
 		}
-		
+
 	}
 
 	public void update(String str, int type, BufferedReader br) {
-      		PreparedStatement pst = null;
-      		if (type == 1)
-         		execute("B2");
-      		else if (type == 2)
-        		   execute("B5");
-      		else if (type == 3)
-         		execute("U4");
-         
+		PreparedStatement pst = null;
+		if (type == 1)
+			execute("B2");
+		else if (type == 2)
+			execute("B5");
+		else if (type == 3)
+			execute("U4");
+
 		try {
 			if (uc.containsKey(str)) {
 				pst = uc.get(str).prepareStatement();
-            try {
-               uc.get(str).getPreparedStatement(br,pst);
-            } catch(IOException e){
-               e.printStackTrace();
-            }
+				try {
+					uc.get(str).getPreparedStatement(br, pst);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 				pst.executeUpdate();
 			} else {
 				System.out.println("Query failed");
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	 }
-		
-   
-   	public void pause(){
-      		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-      		try {
-         		String tmp = null;
-			while(true)
-	      		{
-            			System.out.print("Press enter to continue... ");
-				tmp = br.readLine().trim();
-				if (tmp != null)
-				      break;
-        		}
-      		} catch (IOException e) {
-	      		e.printStackTrace();
-		}
-   }
-   
-	public void display() {
-		for (String s : tables.keySet()) {
-			System.out.println(s);
+			System.out.println("Operation failed due to unexpected results");
 		}
 	}
-	
-	public void commands() {
-		for (String s : ic.keySet()) {
-			System.out.println(s);
+
+	public void pause() {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		try {
+			String tmp = null;
+			while (true) {
+				System.out.print("Press enter to continue... ");
+				tmp = br.readLine().trim();
+				if (tmp != null) {
+					break;
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
+	}
+
+	public void displayFormattedTable(ResultSet rs) throws SQLException {
+		StringBuilder table = new StringBuilder();
+		int numOfCol = rs.getMetaData().getColumnCount();
+		int colWidth;
+		String colFormats[] = new String[numOfCol];
+
+		table.append("\n");
+
+		for (int i = 1; i <= numOfCol; i++) {
+			colWidth = rs.getMetaData().getColumnDisplaySize(i);
+			if (colWidth > 40 || colWidth < 1)
+				colWidth = 27;
+			colFormats[i - 1] = "%-" + colWidth + "s";
+			table.append(String.format(colFormats[i - 1], rs.getMetaData()
+					.getColumnLabel(i)));
+		}
+		table.append("\n");
+
+		while (rs.next()) {
+			for (int i = 1; i <= numOfCol; ++i) {
+				table.append(String.format(colFormats[i - 1], rs.getString(i)));
+			}
+			table.append("\n");
+		}
+
+		System.out.println(table.toString());
 	}
 }

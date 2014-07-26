@@ -6,20 +6,20 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import org.postgresql.util.PSQLException;
+import project.Constraint;
 
 public class U3 extends UpdateTable {
 	private Connection con;
 	private static int pID;
-   
+
 	public U3(Connection con) {
 		this.con = con;
 	}
-   
-   public int getPID(){
-      return pID;
-   }
-   
+
+	public int getPID() {
+		return pID;
+	}
+
 	public PreparedStatement prepareStatement() {
 		try {
 			return con.prepareStatement(qU3);
@@ -33,27 +33,22 @@ public class U3 extends UpdateTable {
 	public String getStatement() {
 		return qU3;
 	}
-	
-	public void getPreparedStatement(BufferedReader br, PreparedStatement pst) throws IOException, SQLException {
+
+	public void getPreparedStatement(BufferedReader br, PreparedStatement pst)
+			throws IOException, NumberFormatException, SQLException {
 		String temp = "";
-		try {
+
 		System.out.println("Please enter Diagnosis ID: ");
 		temp = br.readLine();
-		pst.setInt(1, Integer.parseInt(temp));
-      
-      System.out.println("Please enter patient ID to checkout: ");
-      temp = br.readLine();
-		pst.setInt(2, Integer.parseInt(temp));
+		if (!Constraint.integerConstraintMatch(pst, 1, temp)) {
+			return;
 		}
-		catch (NumberFormatException err)
-		{
-			System.out.println("Invalid Input");
+
+		System.out.println("Please enter patient ID to checkout: ");
+		temp = br.readLine();
+		if (!Constraint.integerConstraintMatch(pst, 2, temp)) {
+			return;
 		}
-		catch (PSQLException e)
-		{
-			System.out.println("Invalid Input");
-		}
-	}	
-   
-   
+	}
+
 }

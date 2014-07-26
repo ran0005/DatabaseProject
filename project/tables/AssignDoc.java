@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import project.Constraint;
+
 public class AssignDoc extends Table {
 
 	@Override
@@ -20,22 +22,31 @@ public class AssignDoc extends Table {
 		System.out.print("Input value for " + "primaryID" + ": ");
 		temp = br.readLine();
 
-		pst.setInt(1, Integer.parseInt(temp));
+		if (!Constraint.integerConstraintMatch(pst, 1, temp)) {
+			return;
+		}
 
 		System.out.print("Input value for " + "secondaryID" + ": ");
 		temp = br.readLine();
 
-		pst.setInt(2, Integer.parseInt(temp));
+		if (!Constraint.integerConstraintMatch(pst, 2, temp)) {
+			return;
+		}
 
 		System.out.print("Input value for " + "patID" + ": ");
 		temp = br.readLine();
 
-		pst.setInt(3, Integer.parseInt(temp));
+		if (!Constraint.integerConstraintMatch(pst, 3, temp)) {
+			return;
+		}
 
 		System.out.print("Input value for " + "assignTime" + ": ");
 		temp = br.readLine();
 
+		if (!Constraint.checkDateFormat(temp)) {
+			return;
+		}
+		
 		pst.setString(4, temp);
-
 	}
 }

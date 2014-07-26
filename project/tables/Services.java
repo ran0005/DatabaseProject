@@ -22,6 +22,8 @@ public class Services extends Table {
 
 		pst.setString(1, temp);
 
+		//not sure if we want custom java constraint for this as looking at the api
+		//anything not (ignore case) equal to true is false so that needs to be considered.
 		System.out.print("Input value for " + "staffOnly" + ": ");
 		temp = br.readLine();
 

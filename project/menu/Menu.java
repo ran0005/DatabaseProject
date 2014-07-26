@@ -11,6 +11,7 @@ interface Command {
 	void runCommand();
 }
 
+@SuppressWarnings("serial")
 public class Menu implements ViewMenuOptions, InsertMenuOptions, UpdateMenuOptions {
 
 	private Database db;
@@ -210,10 +211,6 @@ public class Menu implements ViewMenuOptions, InsertMenuOptions, UpdateMenuOptio
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			catch (NumberFormatException err)
-			{
-				System.out.println("Please Enter an Integer");
-			}
 		}
 	}
    
@@ -231,10 +228,6 @@ public class Menu implements ViewMenuOptions, InsertMenuOptions, UpdateMenuOptio
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
-			}
-			catch (NumberFormatException err)
-			{
-				System.out.println("Please Enter an Integer");
 			}
 		}
 	}

@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import project.Constraint;
+
 public class Admit extends Table {
 
 	@Override
@@ -20,28 +22,38 @@ public class Admit extends Table {
 		System.out.print("Input value for " + "admitDocID" + ": ");
 		temp = br.readLine();
 
-		pst.setInt(1, Integer.parseInt(temp));
+		if (!Constraint.integerConstraintMatch(pst, 1, temp)) {
+			return;
+		}
 
 		System.out.print("Input value for " + "diagID" + ": ");
 		temp = br.readLine();
 
-		pst.setInt(2, Integer.parseInt(temp));
+		if (!Constraint.integerConstraintMatch(pst, 2, temp)) {
+			return;
+		}
 
 		System.out.print("Input value for " + "patID" + ": ");
 		temp = br.readLine();
 
-		pst.setInt(3, Integer.parseInt(temp));
-      
-      System.out.print("Input value for " + "startTime" + ": ");
+		if (!Constraint.integerConstraintMatch(pst, 3, temp)) {
+			return;
+		}
+
+		System.out.print("Input value for " + "startTime" + ": ");
 		temp = br.readLine();
 
+		if(!Constraint.checkDateFormat(temp)) {
+			return;
+		}
+		
 		pst.setString(4, temp);
-      
-      System.out.print("Input value for " + "patType" + ": ");
+
+		System.out.print("Input value for " + "patType" + ": ");
 		temp = br.readLine();
 
 		pst.setString(5, temp);
-      
+
 		pst.setInt(6, java.sql.Types.INTEGER);
 
 		pst.setString(7, null);
