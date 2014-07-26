@@ -210,6 +210,10 @@ public class Menu implements ViewMenuOptions, InsertMenuOptions, UpdateMenuOptio
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			catch (NumberFormatException err)
+			{
+				System.out.println("Please Enter an Integer");
+			}
 		}
 	}
    
@@ -227,6 +231,10 @@ public class Menu implements ViewMenuOptions, InsertMenuOptions, UpdateMenuOptio
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
+			}
+			catch (NumberFormatException err)
+			{
+				System.out.println("Please Enter an Integer");
 			}
 		}
 	}

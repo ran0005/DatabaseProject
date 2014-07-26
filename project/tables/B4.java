@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import org.postgresql.util.PSQLException;
+
 public class B4 extends UpdateTable {
 	private Connection con;
 	
@@ -27,9 +29,9 @@ public class B4 extends UpdateTable {
 		return qB4;
 	}
 	
-	public void getPreparedStatement(BufferedReader br, PreparedStatement pst) throws IOException, NumberFormatException, SQLException {
+	public void getPreparedStatement(BufferedReader br, PreparedStatement pst) throws IOException, SQLException {
 		String temp = "";
-		
+		try {
 		System.out.print("Please enter the start date (YYYY-MM-DD): ");
 		temp = br.readLine();
 		pst.setString(1, temp);
@@ -37,5 +39,14 @@ public class B4 extends UpdateTable {
 		System.out.print("Please enter the end date (YYYY-MM-DD): ");
 		temp = br.readLine();
 		pst.setString(2, temp);
+		}
+		catch (NumberFormatException err)
+		{
+			System.out.println("Invalid Input");
+		}
+		catch (PSQLException e)
+		{
+			System.out.println("Invalid Input");
+		}
 	}	
 }
