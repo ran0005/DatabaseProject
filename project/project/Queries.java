@@ -89,7 +89,7 @@ public interface Queries {
 	
 	String qB4 = "select distinct patID, pLastName || ', ' || pFirstName || ' ' || pMInit as Name"
 			+ "from patient join Admit using (patID) "
-			+ "where endTime::date >= ?::date and endTime::date <= ?::date "
+			+ "where endTime::timestamp >= ?::timestamp and endTime::timestamp <= ?::timestamp "
 			+ "order by patID;";
 	
 	String qB5 = "select patid, plastname||','||pfirstname||' '||pminit as name from patient "
@@ -98,7 +98,7 @@ public interface Queries {
 	
 	String qB6 = "select patid, plastname||','||pfirstname||' '||pminit as name from patient "
 				+ "join admit using (patid) "
-				+ "where pattype = 'out' and startTime::date between ? and ?;";
+				+ "where pattype = 'out' and startTime::date between ?::date and ?::date;";
 	
 	String qB7 = "select patid, starttime, endtime, dname "
 				+ "from patient "
@@ -106,11 +106,17 @@ public interface Queries {
 				+ "join diagnosis using (diagid) "
 				+ "where patID = ?;";
 	
-	String qB8 = "select plastname||','||pfirstname||' '||pminit as name, tname, starttime, orderTime from patient "
+	String qB8 = "select distinct plastname||','||pfirstname||' '||pminit as name, tname, starttime, ordertime "
+				+ "from patient "
 				+ "join admit using (patid) "
-				+ "join orders using (patid) "
-				+ "join treatment using (treatid) "
-				+ "where patID = ? "
+				+ "join " 
+				+ "( "
+				+ 	"select treatID, patID, ordertime "
+				+	"from orders "
+				+ ") as r "
+				+ "on patient.patid = r.patid and ordertime::timestamp between starttime::timestamp and endtime::timestamp "
+				+ "join treatment using (treatID) "
+				+ "where patient.patid = ? "
 				+ "order by starttime desc, orderTime asc;";
 	
 	String qB9 = "select Admit.patID, pLastName || ', ' || pFirstName ||' '|| pMInit as pName, dName, "
@@ -232,7 +238,7 @@ public interface Queries {
 		+ "			from Orders join "
 		+ "			Administers using (orderID) "
 		+ "			where orderID = ? "
-		+ "		) o1 on using (patID) "
+		+ "		) o1 using (patID) "
 		+ "	) as p1 on (docID = empID) "
 		+ ") as e2 on (adminID = empID);";
 	//D
@@ -273,14 +279,14 @@ public interface Queries {
 				+ "	join Treatment using (treatID) "
 				+ "order by treatCount desc;";
 	
-	String qD6 = "select eLastName || ', ' || eFirstName || ' ' || eMInit as Name, tName, treatCount "
-				+ "from Employee join (select empAdministerID, treatID, count(treatID) treatCount "
-				+ "from Administers "
-				+ "where empAdministerID = ? "
-				+ "group by empAdministerID, treatID) treatInfo on (treatInfo.empAdministerID = Employee.empID) "
-				+ "	join Treatment using (treatID) "
-				+ "order by treatCount desc;";
-	
+	String qD6 = "select name, tname, treatcount from ( select eLastName || ', ' || eFirstName || ' ' || eMInit as Name, empID "
+				+ "from Employee where eType = 'Admitting Doctor' or etype = 'Consulting Doctor' and empid = ? ) as r3 "
+				+ "join ( select tname, treatcount, empID from treatment join ( select r.treatID, count(*) as treatcount, empID "
+				+ "from ( select distinct treatID, ordertime, empID from orders join administers using (orderID) "
+				+ "where empid = ? union select distinct treatID, ordertime, empadministerid as empid from orders "
+				+ "join administers using (orderID) where empadministerid = ? ) as r group by r.treatID, empid ) as r1 "
+				+ "using (treatid) ) as r4 using (empid) order by treatcount;";
+				
 	String qD7 = "select empID, eLastName || ', ' || eFirstName || ' ' || eMInit as Name "
 				+ "from (select empID "
 				+ "from Employee "
