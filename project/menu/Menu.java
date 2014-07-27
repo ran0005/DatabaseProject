@@ -173,8 +173,8 @@ public class Menu implements ViewMenuOptions, InsertMenuOptions, UpdateMenuOptio
 	public final HashMap<Integer,Command> hospitalOptionsHashMap = new HashMap<Integer,Command>()
 	{
 		{
-			put(1,  new Command() { public void runCommand() { db.add("diagnosis insert","\n______Add Diagnosis______", br); db.pause();db.pause(); }; });
-			put(2,  new Command() { public void runCommand() { db.add("treatment insert","\n______Add Treatment______", br); }; });
+			put(1,  new Command() { public void runCommand() { db.add("diagnosis insert","\n______Add Diagnosis______", br); db.pause(); }; });
+			put(2,  new Command() { public void runCommand() { db.add("treatment insert","\n______Add Treatment______", br); db.pause(); }; });
 			put(3,  new Command() { public void runCommand() { db.add("room insert","\n______Add Room______", br); db.pause();}; });
 			put(4,  new Command() { public void runCommand() { db.add("services insert","\n______Add Service______", br); db.pause();}; });
 			put(5,  new Command() { public void runCommand() { db.add("staffprovide insert","\n______Assign Staff______", br); db.pause();}; });

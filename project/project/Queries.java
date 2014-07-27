@@ -72,7 +72,8 @@ public interface Queries {
 			+ "		from admit "
 			+ "		where endTime IS NULL "
 			+ "	) as p1 using (patID) "
-			+ ") as p2 using (patID);";
+			+ ") as p2 using (patID) "
+			+ "order by roomNum;";
 	
 	//B
 	String qB1 = "select distinct patID, pLastName || ', ' || pFirstName || ' ' || pMInit as Name, "
@@ -108,18 +109,20 @@ public interface Queries {
 				+ "join diagnosis using (diagid) "
 				+ "where patID = ?;";
 	
-	String qB8 = "select distinct plastname||','||pfirstname||' '||pminit as name, tname, starttime, ordertime "
-				+ "from patient "
-				+ "join admit using (patid) "
+	String qB8 = "select distinct plastname||','||pfirstname||' '||pminit as name, tname, starttime, admintime  "
+			+ "from patient  "
+				+ "join admit using (patid)  "
 				+ "join " 
-				+ "( "
-				+ 	"select treatID, patID, ordertime "
-				+	"from orders "
-				+ ") as r "
-				+ "on patient.patid = r.patid and ordertime::timestamp between starttime::timestamp and endtime::timestamp "
-				+ "join treatment using (treatID) "
-				+ "where patient.patid = ? "
-				+ "order by starttime desc, orderTime asc;";
+				+ "(  "
+				+ "select treatID, patID, admintime  "
+				+ "from orders join administers using (orderid) "
+				+ ") as r  "
+				+ "using (patid) "
+				+ "join treatment using (treatID)  "
+				+ "where patient.patid = ?  "
+				+ "and admintime::timestamp >= starttime::timestamp and (endtime is null or endtime::timestamp >= admintime::timestamp) "
+				+ "order by starttime desc, adminTime asc;";
+
 	
 	String qB9 = "select Admit.patID, pLastName || ', ' || pFirstName ||' '|| pMInit as pName, dName, "
 			+ "eLastName || ', ' || eFirstName ||' '|| eMInit as eName "
@@ -184,12 +187,12 @@ public interface Queries {
 		+ ") as r using (diagID) order by occurences desc";
 		
 	String qC4 = "select Treatment.treatID, tName, occurrences from Treatment join "
-		+ "( select treatID, count(*) as occurrences from Orders group by treatID "
-		+ ") as r using (treatID) order by occurrences desc";
+		+ "( select treatID, count(*) as occurrences from Orders join Administers using (orderID) group by treatID "
+		+ ") as r using (treatID) order by occurrences desc;";
 		
 	String qC5 = "select Treatment.treatID, tName, occurences from Treatment join "
 		+ "( select treatID, count(*) as occurences from ( select distinct patID from Admit "
-		+ "where patType = 'in'	) as r join ( select patID, treatID from Orders "
+		+ "where patType = 'in'	) as r join ( select patID, treatID from Orders join Administers using (orderID) "
 		+ ") as r1 using (patID) group by treatID ) as r3 using (treatID) "
 		+ "order by occurences desc;";
 	
@@ -281,13 +284,20 @@ public interface Queries {
 				+ "	join Treatment using (treatID) "
 				+ "order by treatCount desc;";
 	
-	String qD6 = "select name, tname, treatcount from ( select eLastName || ', ' || eFirstName || ' ' || eMInit as Name, empID "
-				+ "from Employee where eType = 'Admitting Doctor' or etype = 'Consulting Doctor' and empid = ? ) as r3 "
-				+ "join ( select tname, treatcount, empID from treatment join ( select r.treatID, count(*) as treatcount, empID "
-				+ "from ( select distinct treatID, ordertime, empID from orders join administers using (orderID) "
-				+ "where empid = ? union select distinct treatID, ordertime, empadministerid as empid from orders "
-				+ "join administers using (orderID) where empadministerid = ? ) as r group by r.treatID, empid ) as r1 "
-				+ "using (treatid) ) as r4 using (empid) order by treatcount;";
+	String qD6 = "select name, tname, treatcount "
+				+ "			from ( select eLastName || ', ' || eFirstName || ' ' || eMInit as Name, empID "
+				+ "					from Employee "
+				+ "					where empid = ? ) as r3 "
+				+ "				join ( select tname, treatcount, empID "
+				+ "					from treatment join "
+				+ "						( select r.treatID, count(*) as treatcount, empID "
+				+ "						from "
+				+ "							( "
+				+ "							select distinct treatID, ordertime, admintime, empadministerid as empid  "
+				+ "							from orders join administers using (orderID)  "
+				+ "							where empadministerid = ? ) as r  "
+				+ "						group by r.treatID, empid ) as r1 "
+				+ "				using (treatid) ) as r4 using (empid) order by treatcount;";
 				
 	String qD7 = "select empID, eLastName || ', ' || eFirstName || ' ' || eMInit as Name "
 				+ "from (select empID "

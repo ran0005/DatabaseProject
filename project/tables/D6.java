@@ -42,9 +42,5 @@ public class D6 extends UpdateTable {
 		if (!Constraint.integerConstraintMatch(pst, 2, temp)) {
 			return;
 		}
-		
-		if (!Constraint.integerConstraintMatch(pst, 3, temp)) {
-			return;
-		}
 	}	
 }

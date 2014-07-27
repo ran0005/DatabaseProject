@@ -75,7 +75,7 @@ public interface ViewMenuOptions {
 			+ "\t2. Volunteers that Work at the Information Desk on Tuesday\n"
 			+ "\t3. Primary Doctors of Patients with 4 or more Admissions in a Year\n"
 			+ "\t4. Diagnoses Given by a Given Doctor\n"
-			+ "\t5. Treatments Given by a Given Doctor\n"
+			+ "\t5. Treatments Ordered by a Given Doctor\n"
 			+ "\t6. Treatments Participated in by a Given Doctor\n"
 			+ "\t7. Employees Who Have Treated Every Inpatient\n"
 			+ "\t8. Back\n" + "Input command: ";
