@@ -19,14 +19,14 @@ public class StaffProvide extends Table {
 			throws IOException, NumberFormatException, SQLException {
 		String temp = "";
 
-		System.out.print("Input value for " + "empID" + ": ");
+		System.out.print("Input value for " + "staff member's ID" + ": ");
 		temp = br.readLine();
 
 		if (!Constraint.integerConstraintMatch(pst, 1, temp)) {
 			return;
 		}
 
-		System.out.print("Input value for " + "servType" + ": ");
+		System.out.print("Input value for " + "service type" + ": ");
 		temp = br.readLine();
 
 		pst.setString(2, temp);

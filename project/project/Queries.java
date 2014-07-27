@@ -22,8 +22,8 @@ public interface Queries {
 	String treatmentinsert = "insert into treatment values" + "(?,?,?)";
 	String patientinsert = "insert into patient values" + "(?,?,?,?,?,?)";
 	String diagnosisinsert= "insert into diagnosis values" + "(?,?)";
-	String roominsert = "insert into room values" + "(?,?,?)";
-	String admitinsert = "insert into admit values" + "(?,?,?,?,?,?,?)";
+	String roominsert = "insert into room values" + "(?,null,null)";
+	String admitinsert = "insert into admit values" + "(?,?,?,?,?,null,null)";
 	String volProvideinsert = "insert into volprovide values" + "(?,?,?)";
 	String staffProvideinsert = "insert into staffprovide values" + "(?,?)";
 	String assignDocinsert = "insert into assigndoc values" + "(?,?,?,?)";
@@ -40,6 +40,8 @@ public interface Queries {
   	String qU4 = "select patid, diagID, plastname||','||pfirstname||' '||pminit as name from patient "
 				+ "join admit using (patid) "
 				+ "where endtime is null;";
+  	
+  	String qU5 = "update Room set patID = ?, empID = ? where roomNum = ?;";
 
 	///A
 	String qA1 = "select roomNum, pLastName || ', ' || pFirstName || ' ' || pMInit as Name, startTime "
@@ -81,7 +83,7 @@ public interface Queries {
 			+ "from Patient join Admit using (patID) "
 			+ "where patType = 'in' and endTime is null;";
 	
-	String qB3 = "select distinct patID, pLastName || ', ' || pFirstName || ' ' || pMInit as Name "
+	String qB3 = "select distinct patID, pLastName || ', ' || pFirstName || ' ' || pMInit as Name, startTime "
 			+ "from patient join Admit using (patID) "
 			+ "where startTime::date >= ?::date and startTime::date <= ?::date "
 			+ "and patType ='in' "

@@ -19,19 +19,19 @@ public class Treatment extends Table {
 			throws IOException, NumberFormatException, SQLException {
 		String temp = "";
 
-		System.out.print("Input value for " + "treatID" + ": ");
+		System.out.print("Input value for " + "treatment ID" + ": ");
 		temp = br.readLine();
 
 		if (!Constraint.integerConstraintMatch(pst, 1, temp)) {
 			return;
 		}
 
-		System.out.print("Input value for " + "text" + ": ");
+		System.out.print("Input value for " + "treatment name" + ": ");
 		temp = br.readLine();
 
 		pst.setString(2, temp);
 
-		System.out.print("Input value for " + "tType" + ": ");
+		System.out.print("Input value for " + "treatment type (Medication or Procedure)" + ": ");
 		temp = br.readLine();
 
 		pst.setString(3, temp);

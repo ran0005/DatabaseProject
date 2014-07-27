@@ -19,31 +19,31 @@ public class Volunteer extends Table {
 			throws IOException, NumberFormatException, SQLException {
 		String temp = "";
 
-		System.out.print("Input value for " + "volID" + ": ");
+		System.out.print("Input value for " + "the volunteer's ID" + ": ");
 		temp = br.readLine();
 
 		if (!Constraint.integerConstraintMatch(pst, 1, temp)) {
 			return;
 		}
 
-		System.out.print("Input value for " + "vFirstName" + ": ");
+		System.out.print("Input value for " + "the first name" + ": ");
 		temp = br.readLine();
 
 		pst.setString(2, temp);
 
-		System.out.print("Input value for " + "vMInit" + ": ");
+		System.out.print("Input value for " + "the middle initial" + ": ");
 		temp = br.readLine();
 
 		if (!Constraint.characterConstraintMatch(pst, 3, temp)) {
 			return;
 		}
 
-		System.out.print("Input value for " + "vLastName" + ": ");
+		System.out.print("Input value for " + "the last name" + ": ");
 		temp = br.readLine();
 
 		pst.setString(4, temp);
 
-		System.out.print("Input value for " + "vHiredate" + ": ");
+		System.out.print("Input value for " + "the date of hire (YYYY-MM-DD)" + ": ");
 		temp = br.readLine();
 		
 		if (Constraint.checkDateFormat(temp)) {

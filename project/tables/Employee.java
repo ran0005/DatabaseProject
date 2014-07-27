@@ -19,31 +19,31 @@ public class Employee extends Table {
 			throws IOException, NumberFormatException, SQLException {
 		String temp = "";
 
-		System.out.print("Input value for " + "empID" + ": ");
+		System.out.print("Input value for " + "the employee ID" + ": ");
 		temp = br.readLine();
 
 		if (!Constraint.integerConstraintMatch(pst, 1, temp)) {
 			return;
 		}
 
-		System.out.print("Input value for " + "eFirstName" + ": ");
+		System.out.print("Input value for " + "the first name" + ": ");
 		temp = br.readLine();
 
 		pst.setString(2, temp);
 
-		System.out.print("Input value for " + "eMInit" + ": ");
+		System.out.print("Input value for " + "the middle initial" + ": ");
 		temp = br.readLine();
 		
 		if (!Constraint.characterConstraintMatch(pst, 3, temp)) {
 			return;
 		}
 
-		System.out.print("Input value for " + "eLastName" + ": ");
+		System.out.print("Input value for " + "the last name" + ": ");
 		temp = br.readLine();
 
 		pst.setString(4, temp);
 
-		System.out.print("Input value for " + "eHiredate" + ": ");
+		System.out.print("Input value for " + "the date of hire (YYYY-MM-DD)" + ": ");
 		temp = br.readLine();
 		
 		if (!Constraint.checkDateFormat(temp)) {
@@ -52,7 +52,8 @@ public class Employee extends Table {
 		
 		pst.setString(5, temp);
 
-		System.out.print("Input value for " + "eType" + ": ");
+		System.out.print("Input value for " + "the job category\n\t(Choose from 'Admitting Doctor', 'Consulting Doctor', 'Admin',"
+				+ "\n\t'Nurse','Tech', and 'Staff'" + ": ");
 		temp = br.readLine();
 
 		pst.setString(6, temp);

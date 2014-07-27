@@ -19,35 +19,35 @@ public class Orders extends Table {
 			throws IOException, NumberFormatException, SQLException {
 		String temp = "";
 
-		System.out.print("Input value for " + "OrderID" + ": ");
+		System.out.print("Input value for " + "the order's ID" + ": ");
 		temp = br.readLine();
 
 		if (!Constraint.integerConstraintMatch(pst, 1, temp)) {
 			return;
 		}
 
-		System.out.print("Input value for " + "empID" + ": ");
+		System.out.print("Input value for " + "employee ID" + ": ");
 		temp = br.readLine();
 		
 		if (!Constraint.integerConstraintMatch(pst, 2, temp)) {
 			return;
 		}
 		
-		System.out.print("Input value for " + "treatID" + ": ");
+		System.out.print("Input value for " + "treatment ID" + ": ");
 		temp = br.readLine();
 		
 		if (!Constraint.integerConstraintMatch(pst, 3, temp)) {
 			return;
 		}
 		
-		System.out.print("Input value for " + "patID" + ": ");
+		System.out.print("Input value for " + "patient ID" + ": ");
 		temp = br.readLine();
 		
 		if (!Constraint.integerConstraintMatch(pst, 4, temp)) {
 			return;
 		}
 
-		System.out.print("Input value for " + "orderTime" + ": ");
+		System.out.print("Input value for " + "time of the order (YYYY-MM-DD HH:MM)" + ": ");
 		temp = br.readLine();
 
 		pst.setString(5, temp);

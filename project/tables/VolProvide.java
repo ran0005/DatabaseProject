@@ -19,19 +19,19 @@ public class VolProvide extends Table {
 			throws IOException, NumberFormatException, SQLException {
 		String temp = "";
 
-		System.out.print("Input value for " + "volID" + ": ");
+		System.out.print("Input value for " + "the volunteer ID" + ": ");
 		temp = br.readLine();
 
 		if (!Constraint.integerConstraintMatch(pst, 1, temp)) {
 			return;
 		}
 
-		System.out.print("Input value for " + "servType" + ": ");
+		System.out.print("Input value for " + "type of service" + ": ");
 		temp = br.readLine();
 
 		pst.setString(2, temp);
 
-		System.out.print("Input value for " + "dayOfWeek" + ": ");
+		System.out.print("Input value for " + "day of the week" + ": ");
 		temp = br.readLine();
 
 		pst.setString(3, temp);

@@ -8,21 +8,21 @@ import java.sql.SQLException;
 
 import project.Constraint;
 
-public class U1 extends UpdateTable {
+public class U5 extends UpdateTable {
 	private Connection con;
 	private static int pID;
 
-	public U1(Connection con) {
+	public U5(Connection con) {
 		this.con = con;
 	}
 
-	public static int getPID() {
+	public int getPID() {
 		return pID;
 	}
 
 	public PreparedStatement prepareStatement() {
 		try {
-			return con.prepareStatement(qU1);
+			return con.prepareStatement(qU5);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -31,15 +31,26 @@ public class U1 extends UpdateTable {
 
 	@Override
 	public String getStatement() {
-		return qU1;
+		return qU5;
 	}
 
 	public void getPreparedStatement(BufferedReader br, PreparedStatement pst)
 			throws IOException, NumberFormatException, SQLException {
-
 		String temp = "";
 
-		System.out.print("Please enter Admin ID: ");
+		System.out.print("Please enter the room number: ");
+		temp = br.readLine();
+		if (!Constraint.integerConstraintMatch(pst, 3, temp)) {
+			return;
+		}
+		
+		System.out.print("Please enter patient ID: ");
+		temp = br.readLine();
+		if (!Constraint.integerConstraintMatch(pst, 1, temp)) {
+			return;
+		}
+
+		System.out.print("Please enter the admin ID: ");
 		temp = br.readLine().trim();
 		int empid = -1;
 		try {
@@ -50,24 +61,11 @@ public class U1 extends UpdateTable {
 		}
 
 		if (Constraint.checkEmpIDMatchesAdminType(empid) && empid > 0) {
-			pst.setInt(1, empid);
+			pst.setInt(2, empid);
 		} else {
 			System.out.println("Improper employee identification");
 			return;
 		}
-
-		// check against admit? This as far as I can tell is not catered towards setting information for any in patient being checked out,
-		// should ask for patient id right then it can update the info??
-		System.out.print("Please enter the end date (YYYY-MM-DD): ");
-		temp = br.readLine();
-
-		if (Constraint.checkDateFormat(temp)) {
-			pst.setString(2, temp);
-		}
-
-		System.out.print("Please enter patient ID to checkout: ");
-		temp = br.readLine();
-		pID = Integer.parseInt(temp);
-		pst.setInt(3, Integer.parseInt(temp));
 	}
+
 }

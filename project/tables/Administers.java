@@ -19,14 +19,14 @@ public class Administers extends Table {
 			throws IOException, NumberFormatException, SQLException {
 		String temp = "";
 
-		System.out.print("Input value for " + "OrderID" + ": ");
+		System.out.print("Input value for " + "the order ID" + ": ");
 		temp = br.readLine();
 		
 		if(!Constraint.integerConstraintMatch(pst, 1, temp)) {
 			return;
 		}
 
-		System.out.print("Input value for " + "empAdministerID" + ": ");
+		System.out.print("Input value for " + "the administering employee ID" + ": ");
 		temp = br.readLine();
 
 		if(!Constraint.integerConstraintMatch(pst, 2, temp)) {
@@ -37,11 +37,12 @@ public class Administers extends Table {
 			return;
 		}
 
-		System.out.print("Input value for " + "adminTime" + ": ");
+		System.out.print("Input value for " + "administration time (YYYY-MM-DD HH:MM)" + ": ");
 		temp = br.readLine();
 
-		if(!Constraint.integerConstraintMatch(pst, 3, temp)) {
+		if(!!Constraint.checkTimestampFormat(temp)) {
 			return;
 		}
+		pst.setString(3, temp);
 	}
 }

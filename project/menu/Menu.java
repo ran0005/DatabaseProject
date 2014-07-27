@@ -164,8 +164,9 @@ public class Menu implements ViewMenuOptions, InsertMenuOptions, UpdateMenuOptio
 			put(2, new Command() { public void runCommand() { db.add("assignDoc insert","\n______Adding Secondary Doctor______", br); db.pause();}; });
 			put(3, new Command() { public void runCommand() { db.add("orders insert","\n______Order Treatment______", br); db.pause();}; });
 			put(4, new Command() { public void runCommand() { db.add("administer insert","\n______Administer Treatment______", br); db.pause();}; });
-			put(5, new Command() { public void runCommand() { db.update("U3",3, br); db.pause();}; });
-			put(6, new Command() { public void runCommand() { updateMenu(updateCheckoutMenu, updateCheckoutHashMap); }; });
+			put(5, new Command() { public void runCommand() { db.update("U5",4, br); db.pause();}; });
+			put(6, new Command() { public void runCommand() { db.update("U3",3, br); db.pause();}; });
+			put(7, new Command() { public void runCommand() { updateMenu(updateCheckoutMenu, updateCheckoutHashMap); }; });
 		}						
 	};
 
@@ -201,7 +202,7 @@ public class Menu implements ViewMenuOptions, InsertMenuOptions, UpdateMenuOptio
 			try {
 				System.out.print(message);
 				int command = Integer.parseInt(br.readLine());
-				if (command < hm.size() + 1) {
+				if (command < hm.size() + 1 && command > 0) {
 					hm.get(command).runCommand();
 				} else if (command == hm.size() + 1) {
 					break;
@@ -210,6 +211,8 @@ public class Menu implements ViewMenuOptions, InsertMenuOptions, UpdateMenuOptio
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
+			} catch (NumberFormatException e) {
+				System.out.println("Invalid command received");
 			}
 		}
 	}
@@ -219,7 +222,7 @@ public class Menu implements ViewMenuOptions, InsertMenuOptions, UpdateMenuOptio
 			try {
 				System.out.print(message);
 				int command = Integer.parseInt(br.readLine());
-				if (command < hm.size() + 1) {
+				if (command < hm.size() + 1 && command > 0) {
 					hm.get(command).runCommand();
 				} else if (command == hm.size() + 1) {
 					break;
@@ -228,6 +231,8 @@ public class Menu implements ViewMenuOptions, InsertMenuOptions, UpdateMenuOptio
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
+			} catch (NumberFormatException e) {
+				System.out.println("Invalid command received");
 			}
 		}
 	}

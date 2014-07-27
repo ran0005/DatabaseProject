@@ -19,14 +19,14 @@ public class Diagnosis extends Table {
 			throws IOException, NumberFormatException, SQLException {
 		String temp = "";
 
-		System.out.print("Input value for " + "diagID" + ": ");
+		System.out.print("Input value for " + "diagnosis ID" + ": ");
 		temp = br.readLine();
 
 		if (!Constraint.integerConstraintMatch(pst, 1, temp)) {
 			return;
 		}
 
-		System.out.print("Input value for " + "dName" + ": ");
+		System.out.print("Input value for " + "diagnosis name" + ": ");
 		temp = br.readLine();
 
 		pst.setString(2, temp);

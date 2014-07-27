@@ -26,10 +26,11 @@ public interface InsertMenuOptions {
 				"\t1. Admit Patient\n" +
 				"\t2. Add Secondary Doctor(s)\n" +
 				"\t3. Order Treatment\n" +
-				"\t4. Adminster Treatment\n" +
-				"\t5. Update Diagnosis\n" +
-				"\t6. Checkout Patient\n" +
-				"\t7. Back\n" +
+				"\t4. Administer Treatment\n" +
+				"\t5. Assign Patient a Room\n" +
+				"\t6. Update Diagnosis\n" +
+				"\t7. Checkout Patient\n" +
+				"\t8. Back\n" +
 				"Input command: ";
 
 	public  String hospitalOptionMenu = "\n______Hospital Options______\n" +

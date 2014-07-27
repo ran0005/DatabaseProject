@@ -19,28 +19,28 @@ public class AssignDoc extends Table {
 			throws IOException, NumberFormatException, SQLException {
 		String temp = "";
 
-		System.out.print("Input value for " + "primaryID" + ": ");
+		System.out.print("Input value for " + "primary doctor's ID" + ": ");
 		temp = br.readLine();
 
 		if (!Constraint.integerConstraintMatch(pst, 1, temp)) {
 			return;
 		}
 
-		System.out.print("Input value for " + "secondaryID" + ": ");
+		System.out.print("Input value for " + "secondary doctor's ID" + ": ");
 		temp = br.readLine();
 
 		if (!Constraint.integerConstraintMatch(pst, 2, temp)) {
 			return;
 		}
 
-		System.out.print("Input value for " + "patID" + ": ");
+		System.out.print("Input value for " + "patient ID" + ": ");
 		temp = br.readLine();
 
 		if (!Constraint.integerConstraintMatch(pst, 3, temp)) {
 			return;
 		}
 
-		System.out.print("Input value for " + "assignTime" + ": ");
+		System.out.print("Input value for " + "time of assigning (YYYY-MM-DD)" + ": ");
 		temp = br.readLine();
 
 		if (!Constraint.checkDateFormat(temp)) {

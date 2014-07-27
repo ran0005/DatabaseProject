@@ -19,43 +19,39 @@ public class Admit extends Table {
 			throws IOException, NumberFormatException, SQLException {
 		String temp = "";
 
-		System.out.print("Input value for " + "admitDocID" + ": ");
+		System.out.print("Input value for " + "admitting doctor's ID" + ": ");
 		temp = br.readLine();
 
 		if (!Constraint.integerConstraintMatch(pst, 1, temp)) {
 			return;
 		}
 
-		System.out.print("Input value for " + "diagID" + ": ");
+		System.out.print("Input value for " + "diagnosis ID" + ": ");
 		temp = br.readLine();
 
 		if (!Constraint.integerConstraintMatch(pst, 2, temp)) {
 			return;
 		}
 
-		System.out.print("Input value for " + "patID" + ": ");
+		System.out.print("Input value for " + "patient ID" + ": ");
 		temp = br.readLine();
 
 		if (!Constraint.integerConstraintMatch(pst, 3, temp)) {
 			return;
 		}
 
-		System.out.print("Input value for " + "startTime" + ": ");
+		System.out.print("Input value for " + "time of admittance (YYYY-MM-DD HH:MM)" + ": ");
 		temp = br.readLine();
 
-		if(!Constraint.checkDateFormat(temp)) {
+		if(!Constraint.checkTimestampFormat(temp)) {
 			return;
 		}
 		
 		pst.setString(4, temp);
 
-		System.out.print("Input value for " + "patType" + ": ");
+		System.out.print("Input value for " + "patient type (in or out)" + ": ");
 		temp = br.readLine();
 
 		pst.setString(5, temp);
-
-		pst.setInt(6, java.sql.Types.INTEGER);
-
-		pst.setString(7, null);
 	}
 }

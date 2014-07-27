@@ -94,7 +94,7 @@ public class Constraint {
 	
 	//add checks for valid months and days for instance no 2014-13-68 as that would look stupid...
 	public static boolean checkDateFormat(String date) {
-		if (date.length() != 10) {
+		if (date.trim().length() != 10) {
 			System.out
 					.println("Data Entry Error: date format should be YYYY-MM-DD");
 			return false;
@@ -104,6 +104,23 @@ public class Constraint {
 			if (c != '-' && Character.getNumericValue(c) < 0) {
 				System.out
 						.println("Data Entry Error: date format should be YYYY-MM-DD");
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public static boolean checkTimestampFormat(String time) {
+		if (time.trim().length() != 16) {
+			System.out
+					.println("Data Entry Error: timestamp format should be YYYY-MM-DD HH:MM");
+			return false;
+		}
+
+		for (char c : time.toCharArray()) {
+			if (c != '-' && c != ' ' && c != ':' && Character.getNumericValue(c) < 0) {
+				System.out
+						.println("Data Entry Error: timestamp format should be YYYY-MM-DD");
 				return false;
 			}
 		}

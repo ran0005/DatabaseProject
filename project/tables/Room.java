@@ -20,24 +20,10 @@ public class Room extends Table {
 		
 		String temp = "";
 
-		System.out.print("Input value for " + "roomNum" + ": ");
+		System.out.print("Input value for " + "the room number" + ": ");
 		temp = br.readLine();
 		
 		if (!Constraint.integerConstraintMatch(pst, 1, temp)) {
-			return;
-		}
-		
-		System.out.print("Input value for " + "patID" + ": ");
-		temp = br.readLine();
-		
-		if (!Constraint.integerConstraintMatch(pst, 2, temp)) {
-			return;
-		}
-		
-		System.out.print("Input value for " + "empID" + ": ");
-		temp = br.readLine();
-		
-		if (!Constraint.integerConstraintMatch(pst, 3, temp)) {
 			return;
 		}
 	}

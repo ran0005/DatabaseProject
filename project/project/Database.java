@@ -63,6 +63,7 @@ public class Database implements Queries {
 		tables.put("U2", qU2);
 		tables.put("U3", qU3);
 		tables.put("U4", qU4);
+		tables.put("U5", qU5);
 	}
 
 	private static final HashMap<String, Table> ic;
@@ -99,6 +100,7 @@ public class Database implements Queries {
 		uc.put("U1", new U1(con));
 		uc.put("U2", new U2(con));
 		uc.put("U3", new U3(con));
+		uc.put("U5", new U5(con));
 	}
 
 	public void connect() {
@@ -210,6 +212,8 @@ public class Database implements Queries {
 			execute("B5");
 		else if (type == 3)
 			execute("U4");
+		else if (type == 4)
+			execute("A2");
 
 		try {
 			if (uc.containsKey(str)) {
@@ -254,8 +258,8 @@ public class Database implements Queries {
 
 		for (int i = 1; i <= numOfCol; i++) {
 			colWidth = rs.getMetaData().getColumnDisplaySize(i);
-			if (colWidth > 40 || colWidth < 1)
-				colWidth = 27;
+			if (colWidth > 40) colWidth = 27;
+			else if (colWidth < 5) colWidth = 7;
 			colFormats[i - 1] = "%-" + colWidth + "s";
 			table.append(String.format(colFormats[i - 1], rs.getMetaData()
 					.getColumnLabel(i)));
