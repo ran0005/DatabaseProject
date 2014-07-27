@@ -27,8 +27,8 @@ public interface Queries {
 	String volProvideinsert = "insert into volprovide values" + "(?,?,?)";
 	String staffProvideinsert = "insert into staffprovide values" + "(?,?)";
 	String assignDocinsert = "insert into assigndoc values" + "(?,?,?,?)";
-	String ordersinsert = "insert into orders values" + "(?,?,?,?)";
-	String administersinsert = "insert into administers values" + "(?,?,?,?,?,?)";
+	String ordersinsert = "insert into orders values" + "(?,?,?,?,?)";
+	String administersinsert = "insert into administers values" + "(?,?,?)";
 	
 	// update strings
 	String qU1 = "update Admit set dischargeAdminID = ?, endTime  = ? where patID = ? and endTime is null;";
@@ -83,15 +83,15 @@ public interface Queries {
 			+ "from Patient join Admit using (patID) "
 			+ "where patType = 'in' and endTime is null;";
 	
-	String qB3 = "select distinct patID, pLastName || ', ' || pFirstName || ' ' || pMInit as Name, startTime "
+	String qB3 = "select distinct patID, pLastName || ', ' || pFirstName || ' ' || pMInit as Name "
 			+ "from patient join Admit using (patID) "
 			+ "where startTime::date >= ?::date and startTime::date <= ?::date "
 			+ "and patType ='in' "
 			+ "order by patID;";
 	
-	String qB4 = "select distinct patID, pLastName || ', ' || pFirstName || ' ' || pMInit as Name"
+	String qB4 = "select distinct patID, pLastName || ', ' || pFirstName || ' ' || pMInit as Name "
 			+ "from patient join Admit using (patID) "
-			+ "where endTime::timestamp >= ?::timestamp and endTime::timestamp <= ?::timestamp "
+			+ "where endTime::timestamp >= ?::timestamp and endTime is not null and endTime::timestamp <= ?::timestamp "
 			+ "order by patID;";
 	
 	String qB5 = "select patid, plastname||','||pfirstname||' '||pminit as name from patient "
@@ -222,7 +222,7 @@ public interface Queries {
 		+ "group by dName "
 		+ "order by count(dName);";
 		
-	String qC8 = "select docName, patName, "
+	String qC8 = "select distinct docName, patName, "
 		+ "eLastName || ', ' || eFirstName || ' ' || eMInit as empName "
 		+ "from employee join "
 		+ "( "

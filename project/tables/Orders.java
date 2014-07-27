@@ -26,30 +26,34 @@ public class Orders extends Table {
 			return;
 		}
 
-		System.out.print("Input value for " + "employee ID" + ": ");
+		System.out.print("Input value for " + "the ordering doctor's ID" + ": ");
 		temp = br.readLine();
 		
 		if (!Constraint.integerConstraintMatch(pst, 2, temp)) {
 			return;
 		}
 		
-		System.out.print("Input value for " + "treatment ID" + ": ");
+		System.out.print("Input value for " + "the treatment ID" + ": ");
 		temp = br.readLine();
 		
 		if (!Constraint.integerConstraintMatch(pst, 3, temp)) {
 			return;
 		}
 		
-		System.out.print("Input value for " + "patient ID" + ": ");
+		System.out.print("Input value for " + "the patient ID" + ": ");
 		temp = br.readLine();
 		
 		if (!Constraint.integerConstraintMatch(pst, 4, temp)) {
 			return;
 		}
 
-		System.out.print("Input value for " + "time of the order (YYYY-MM-DD HH:MM)" + ": ");
+		System.out.print("Input value for " + "the time of the order (YYYY-MM-DD HH:MM)" + ": ");
 		temp = br.readLine();
 
+		if(!Constraint.checkTimestampFormat(temp)) {
+			return;
+		}
+		
 		pst.setString(5, temp);
 	}
 }

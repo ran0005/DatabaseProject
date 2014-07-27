@@ -58,16 +58,23 @@ public class U1 extends UpdateTable {
 
 		// check against admit? This as far as I can tell is not catered towards setting information for any in patient being checked out,
 		// should ask for patient id right then it can update the info??
-		System.out.print("Please enter the end date (YYYY-MM-DD): ");
+		System.out.print("Please enter the end date (YYYY-MM-DD HH:MM): ");
 		temp = br.readLine();
 
-		if (Constraint.checkDateFormat(temp)) {
-			pst.setString(2, temp);
+		if(!Constraint.checkTimestampFormat(temp)) {
+			return;
 		}
+
+		pst.setString(2, temp);
 
 		System.out.print("Please enter patient ID to checkout: ");
 		temp = br.readLine();
-		pID = Integer.parseInt(temp);
-		pst.setInt(3, Integer.parseInt(temp));
+		try {
+			pID = Integer.parseInt(temp);
+			pst.setInt(3, pID);
+		} catch (NumberFormatException e) {
+			System.out.println("Only numbers are accepted for this field");
+			return;
+		}
 	}
 }

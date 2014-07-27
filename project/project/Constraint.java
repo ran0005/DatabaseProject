@@ -83,12 +83,30 @@ public class Constraint {
 
 		while (rs.next()) {
 			if (rs.getInt(1) == empid) {
+				System.out
+					.println("Identification Error: cannot be Staff or an Administer");
 				return false;
 			}
 		}
 
-		System.out
-				.println("Identification Error: cannot be Staff or an Administer");
+		return true;
+	}
+	
+	public static boolean checkPatientNotCheckedIn(int patID)
+		throws SQLException {
+		PreparedStatement checkStatement = con.prepareStatement(Queries.qB2);
+		checkStatement.execute();
+		ResultSet rs = checkStatement.getResultSet();
+		
+		while (rs.next()) {
+			if (rs.getInt(1) == patID) {
+				System.out.println(
+						"Error: a patient cannot be admitted more than once at a time.");
+				return false;
+			}
+		}
+		
+		
 		return true;
 	}
 	

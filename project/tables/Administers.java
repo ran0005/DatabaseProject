@@ -40,7 +40,7 @@ public class Administers extends Table {
 		System.out.print("Input value for " + "administration time (YYYY-MM-DD HH:MM)" + ": ");
 		temp = br.readLine();
 
-		if(!!Constraint.checkTimestampFormat(temp)) {
+		if(!Constraint.checkTimestampFormat(temp)) {
 			return;
 		}
 		pst.setString(3, temp);

@@ -35,10 +35,19 @@ public class Admit extends Table {
 
 		System.out.print("Input value for " + "patient ID" + ": ");
 		temp = br.readLine();
-
-		if (!Constraint.integerConstraintMatch(pst, 3, temp)) {
+		int patID;
+		try {
+			patID = Integer.parseInt(temp);
+			if (!Constraint.checkPatientNotCheckedIn(patID)) {
+				return;
+			}
+		} catch (NumberFormatException e) {
+			System.out
+				.println("Data Entry Error: only numbers are accepted for this field");
 			return;
 		}
+		
+		pst.setInt(3, patID);
 
 		System.out.print("Input value for " + "time of admittance (YYYY-MM-DD HH:MM)" + ": ");
 		temp = br.readLine();

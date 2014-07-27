@@ -40,7 +40,7 @@ check (servType in ('Gift shop','Info desk','Snack carts','Reading carts','Cafet
 
 create table Treatment (
 treatID integer primary key,
-tName text not null,
+tName text unique not null,
 tType text not null,
 check (tType in ('Medication','Procedure'))
 );
