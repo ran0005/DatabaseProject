@@ -138,6 +138,7 @@ insert into StaffProvide values
 
 -- AssignDoc Data
 insert into AssignDoc values
+(2, 10, 1, '2014-03-08 16:45'),
 (2, 3, 2, '2014-01-23 11:24'),
 (2, 10, 2, '2014-01-23 11:24'),
 (10, 5, 3, '2014-02-13 12:31'),

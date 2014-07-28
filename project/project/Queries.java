@@ -309,7 +309,7 @@ public interface Queries {
 				+ "except "
 				+ "select distinct empID "
 				+ "from (select empID, patID "
-				+ "	from Employee, Patient "
+				+ "	from Employee, (select distinct patID from admit where patType='in') inpatients "
 				+ "	except "
 				+ "	select * from EmployeePatientInteraction) NoInteraction) AllInteraction "
 				+ "join Employee using (empID);";
