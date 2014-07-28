@@ -190,11 +190,15 @@ public interface Queries {
 		+ "( select treatID, count(*) as occurrences from Orders join Administers using (orderID) group by treatID "
 		+ ") as r using (treatID) order by occurrences desc;";
 		
-	String qC5 = "select Treatment.treatID, tName, occurences from Treatment join "
-		+ "( select treatID, count(*) as occurences from ( select distinct patID from Admit "
-		+ "where patType = 'in'	) as r join ( select patID, treatID from Orders join Administers using (orderID) "
-		+ ") as r1 using (patID) group by treatID ) as r3 using (treatID) "
-		+ "order by occurences desc;";
+	String qC5 = "select treatID, tname, count(tname) "
+			+ "	from orders join (select patID, startTime, endTime "
+			+ "		from admit "
+			+ "		where pattype = 'in') outpatients using (patID) "
+			+ "	join Treatment using (treatID)	 "
+			+ "	join Administers using (orderID) "
+			+ "	where orderTime::timestamp > startTime::timestamp and (endTime is null or orderTime::timestamp < endTime::timestamp) "
+			+ "	group by treatID, tname "
+			+ "	order by count(tname) desc;";
 	
 	String qC6 = "select treatID, tname, count(tname) "
 		+ "	from orders join (select patID, startTime, endTime "
@@ -206,7 +210,7 @@ public interface Queries {
 		+ "	group by treatID, tname "
 		+ "	order by count(tname) desc;";
 				
-	String qC7 = "select dName, count(dName) "
+	String qC7 = "select patID, dName, count(dName) "
 		+ "from diagnosis join "
 		+ "( "
 		+ "	select patID, diagID "
@@ -222,7 +226,7 @@ public interface Queries {
 		+ "			) as a1) "
 		+ "	) as a2 using (patID) "
 		+ ") as d1 using (diagID) "
-		+ "group by dName "
+		+ "group by patID, dName "
 		+ "order by count(dName);";
 		
 	String qC8 = "select distinct docName, patName, "
