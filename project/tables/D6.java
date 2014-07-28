@@ -30,16 +30,22 @@ public class D6 extends UpdateTable {
 	}
 	
 	public void getPreparedStatement(BufferedReader br, PreparedStatement pst) throws IOException, NumberFormatException, SQLException {
-		String temp = "";
+		int t1;
+		String t2 = "";
 		
 		System.out.print("Please enter the doctor's employee ID: ");
-		temp = br.readLine();
+		t2 = br.readLine();
+		t1 = Integer.parseInt(t2);
 		
-		if (!Constraint.integerConstraintMatch(pst, 1, temp)) {
+		if (!Constraint.checkEmpIDMatchesPrimaryOrSecondaryDoctor(t1)) {
 			return;
 		}
 		
-		if (!Constraint.integerConstraintMatch(pst, 2, temp)) {
+		if (!Constraint.integerConstraintMatch(pst, 1, t2)) {
+			return;
+		}
+
+		if (!Constraint.integerConstraintMatch(pst, 2, t2)) {
 			return;
 		}
 	}	
